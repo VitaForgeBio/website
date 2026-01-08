@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VitaForge - Bitcoin Treasury</title>
+    <script src="auth.js"></script>
     <style>
         :root {
             --bg-color: #050b14;
@@ -21,6 +22,7 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             overflow-x: hidden;
+            visibility: hidden; transition: opacity 0.5s ease;
         }
 
         /* --- Navbar --- */
@@ -240,22 +242,18 @@
                         <div class="hero-amount" id="vf-price" style="color: #00f0ff; text-shadow: 0 0 20px #00f0ff;">$10.00</div>
                         <div class="btc-label">VitaForge Price</div>
                     </div>
-                    
                     <div>
                         <div class="sub-amount" id="btc-price" style="color: #ffcc00;">$93,000</div>
                         <div class="btc-label">Bitcoin Price</div>
                     </div>
-                    
                     <div>
                         <div class="sub-amount" id="leverage-ratio">0.00x</div>
                         <div class="btc-label">Leverage Ratio</div>
                     </div>
-
                     <div>
                         <div class="sub-amount" id="market-cap">$100M</div>
                         <div class="btc-label">Market Cap</div>
                     </div>
-
                     <div>
                         <div class="sub-amount" id="mnav">1.00x</div>
                         <div class="btc-label">mNAV</div>
@@ -267,22 +265,18 @@
                         <div class="hero-amount" id="btc-counter">1,500</div>
                         <div class="btc-label">Total BTC Treasury</div>
                     </div>
-
                     <div>
                         <div class="sub-amount" id="debt-counter" style="color: #ff9999;">$0M</div>
                         <div class="btc-label">Outstanding Debt</div>
                     </div>
-
                     <div>
                         <div class="sub-amount" id="retired-counter" style="color: #99ff99;">$0M</div>
                         <div class="btc-label">Retired Debt</div>
                     </div>
-
                     <div>
                         <div class="sub-amount" id="ev-counter">$150M</div>
                         <div class="btc-label">Enterprise Value</div>
                     </div>
-
                     <div>
                         <div class="sub-amount" id="btc-per-share">0.00015</div>
                         <div class="btc-label">Bitcoin per Share</div>
@@ -341,7 +335,7 @@
 Time Start Date: 2026-01-01
 Time End Date: 2030-01-01
 Time Flow Rate: 3
-Starting Total VitaForge Shares: 10000000
+Starting Total VitaForge Shares: 100000000
 Lower Range Bitcoin VOL: 30
 Upper Range Bitcoin VOL: 95
 Median VOL Start: 45
@@ -589,7 +583,6 @@ Exit Amount: 4000
             
             let biotechEVM = 0;
             assetInstances.forEach(inst => { 
-                // Only count EV if asset is active and NOT exiting/gone
                 if(inst.state !== 'gone' && inst.state !== 'exiting') {
                     biotechEVM += inst.currentEV; 
                 }
@@ -669,10 +662,9 @@ Exit Amount: 4000
             assetInstances.forEach(inst => {
                 if (inst.state === 'gone') return;
                 
-                // Exit Trigger
                 if (inst.def.exitDate && currentDate >= inst.def.exitDate && inst.state !== 'exiting') {
                     inst.state = 'exiting';
-                    inst.currentEV = 0; // Immediate zeroing on exit start
+                    inst.currentEV = 0; 
                 }
 
                 if (inst.state === 'hidden') {
@@ -906,7 +898,11 @@ Exit Amount: 4000
             requestAnimationFrame(animate);
         }
 
-        loadData();
+        if (sessionStorage.getItem("vf_access_granted")) {
+            loadData();
+        } else {
+            window.addEventListener('vf-app-start', loadData);
+        }
 
     </script>
 </body>
