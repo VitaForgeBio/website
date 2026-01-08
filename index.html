@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitaForge - Home</title>
+    <style>
+        :root {
+            --bg-color: #050b14;
+            --text-main: #ffffff;
+            --highlight-cyan: #00f0ff;
+            --highlight-orange: #ff4d00;
+        }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(15, 29, 46, 0.95);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--highlight-cyan);
+            position: sticky;
+            top: 0;
+            z-index: 2000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        .nav-link {
+            color: #aaa;
+            text-decoration: none;
+            margin: 0 2rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .nav-link:hover { color: var(--highlight-cyan); text-shadow: 0 0 8px rgba(0, 240, 255, 0.5); }
+        .nav-link.active { color: var(--highlight-cyan); }
+        .nav-link.active::after {
+            content: ''; position: absolute; width: 100%; height: 2px; bottom: -5px; left: 0;
+            background: var(--highlight-orange); box-shadow: 0 0 10px var(--highlight-orange);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #0f1d2e 0%, #050b14 70%);
+        }
+        h1 {
+            font-size: 4rem;
+            margin: 0;
+            background: linear-gradient(90deg, var(--highlight-cyan), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+        p.subtitle {
+            font-size: 1.5rem;
+            color: #889;
+            margin-top: 1rem;
+            max-width: 600px;
+        }
+        .cta-btn {
+            margin-top: 2rem;
+            padding: 15px 40px;
+            background: transparent;
+            border: 2px solid var(--highlight-cyan);
+            color: var(--highlight-cyan);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .cta-btn:hover {
+            background: var(--highlight-cyan);
+            color: #000;
+            box-shadow: 0 0 20px var(--highlight-cyan);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="dashboard.html" class="nav-link">Asset Dashboard</a>
+        <a href="treasury.html" class="nav-link">Bitcoin Treasury</a>
+    </nav>
+
+    <div class="hero">
+        <h1>VitaForge</h1>
+        <p class="subtitle">The Intersection of Biotech Innovation and Blockchain Finance.</p>
+        <a href="dashboard.html" class="cta-btn">View Portfolio</a>
+    </div>
+
+</body>
+</html>
