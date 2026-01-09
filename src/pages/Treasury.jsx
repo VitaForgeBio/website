@@ -140,11 +140,16 @@ export default function Treasury() {
         canvas.width = width;
         canvas.height = height;
 
+        // Alignment Constants
+        const equityStartX = width * 0.275;
+        const equityEndX = width * 0.65;
+        const equityCenterX = (equityStartX + equityEndX) / 2;
+
         // Classes
         class MilestoneParticle {
             constructor(startX, startY, milestoneName, noteSize, evVal) {
                 this.x = startX; this.y = startY;
-                this.targetX = width / 2; this.targetY = height / 2;
+                this.targetX = equityCenterX; this.targetY = height / 2;
                 this.speed = 4; this.text = milestoneName;
                 this.noteSize = noteSize; this.evVal = evVal;
                 this.life = 1.0;
@@ -172,7 +177,7 @@ export default function Treasury() {
 
         class VolatilityParticle {
             constructor(dVol) {
-                this.x = 100; this.y = 80; this.targetX = width / 2; this.targetY = height / 2;
+                this.x = 100; this.y = 80; this.targetX = equityCenterX; this.targetY = height / 2;
                 this.speed = 5; this.text = `VOL > ${dVol}`; this.life = 1.0;
             }
             update() {
@@ -288,7 +293,7 @@ export default function Treasury() {
             if (type === 'exit' || btcToEmit > 0) {
                 const isExit = (type === 'exit');
                 const particleCount = isExit ? 25 : 8;
-                const originX = width / 2;
+                const originX = equityCenterX;
                 const offset = height * 0.3;
                 const originY = isExit ? (height / 2 + offset) : (height / 2 - offset);
 
@@ -482,8 +487,8 @@ export default function Treasury() {
         function drawTicker() {
             // Box dimensions (must match drawEquityLine)
             const centerY = height / 2;
-            const startX = width * 0.275;
-            const endX = width * 0.65;
+            const startX = equityStartX;
+            const endX = equityEndX;
             const rectH = 200;
             const bottomY = centerY + (rectH / 2) - 10; // 10px padding from bottom
 
@@ -556,7 +561,7 @@ export default function Treasury() {
 
         function drawAssetsAndExits() {
             const offset = height * 0.3;
-            const exitX = width / 2; const exitY = height / 2 + offset;
+            const exitX = equityCenterX; const exitY = height / 2 + offset;
             assetInstances.forEach(inst => {
                 if (inst.state === 'hidden' || inst.state === 'gone') return;
                 let drawX = inst.x; let drawY = inst.y;
@@ -581,8 +586,8 @@ export default function Treasury() {
             const centerY = height / 2;
 
             // Trim 25% from left (was 0.15 start, now 0.275 start)
-            const startX = width * 0.275;
-            const endX = width * 0.65; // Total range is roughly 37.5% of width now
+            const startX = equityStartX;
+            const endX = equityEndX; // Total range is roughly 37.5% of width now
             const rectH = 200;
 
             // Background Rectangle (Black with rounded corners)
@@ -616,7 +621,7 @@ export default function Treasury() {
 
         function drawBoxes() {
             const offset = height * 0.3;
-            const cx = width / 2; const noteY = height / 2 - offset; const exitY = height / 2 + offset;
+            const cx = equityCenterX; const noteY = height / 2 - offset; const exitY = height / 2 + offset;
             noteBoxIntensity *= 0.96;
             const glow = noteBoxIntensity > 0.1 ? 1 : 0.2;
             const boxColor = noteBoxIntensity > 0.1 ? activePulseColor : '#ff4d00';
