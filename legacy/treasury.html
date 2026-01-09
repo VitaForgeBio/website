@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitaForge - Bitcoin Treasury</title>
+    <link rel="icon" href="favicon.ico">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="treasury.css">
+
+    <script src="auth.js"></script>
+    <script src="treasury.js" defer></script>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="investors.html" class="nav-link">Investors</a>
+        <a href="dashboard.html" class="nav-link">Asset Dashboard</a>
+        <a href="treasury.html" class="nav-link active">Bitcoin Treasury</a>
+    </nav>
+
+    <div class="container">
+        <img src="VitaForge_Logo.png" alt="VitaForge Logo" class="header-logo">
+        <p class="strategy-text">
+            We monetize volatility. Assets (Left) drive milestones. Milestones drive equity volatility (Center).
+            We harvest this volatility via Convertible Notes when implied volatility spikes or Bitcoin surges,
+            converting premium into <span class="highlight-text">Bitcoin Yield</span> (Right).
+        </p>
+        <div id="error-box"></div>
+
+        <div class="animation-container">
+            <canvas id="harvestCanvas"></canvas>
+
+            <div class="anim-label label-equity">Equity Volatility</div>
+            <div class="anim-label label-treasury">Treasury Yield</div>
+
+            <div class="treasury-counter">
+                <div class="counter-column">
+                    <div>
+                        <div class="hero-amount" id="vf-price">$10.00</div>
+                        <div class="btc-label">VitaForge Price</div>
+                    </div>
+                    <div>
+                        <div class="sub-amount" id="btc-price">$93,000</div>
+                        <div class="btc-label">Bitcoin Price</div>
+                    </div>
+                    <div>
+                        <div class="sub-amount" id="leverage-ratio">0.00x</div>
+                        <div class="btc-label">Leverage Ratio</div>
+                    </div>
+                    <div>
+                        <div class="sub-amount" id="market-cap">$100M</div>
+                        <div class="btc-label">Market Cap</div>
+                    </div>
+                    <div>
+                        <div class="sub-amount" id="mnav">1.00x</div>
+                        <div class="btc-label">mNAV</div>
+                    </div>
+                </div>
+
+                <div class="counter-column">
+                    <div>
+                        <div class="hero-amount" id="btc-counter">1,500</div>
+                        <div class="btc-label">Total BTC Treasury</div>
+                    </div>
+                    <div>
+                        <div class="sub-amount" id="debt-counter">$0M</div>
+                        <div class="btc-label">Outstanding Debt</div>
+                    </div>
+                    <div>
+                        <div class="sub-amount" id="retired-counter">$0M</div>
+                        <div class="btc-label">Retired Debt</div>
+                    </div>
+                    <div>
+                        <div class="sub-amount" id="ev-counter">$150M</div>
+                        <div class="btc-label">Enterprise Value</div>
+                    </div>
+                    <div>
+                        <div class="sub-amount" id="btc-per-share">0.00015</div>
+                        <div class="btc-label">Bitcoin per Share</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-info" id="note-popup">Issuing Note: $75M</div>
+            <div class="status-message" id="end-message">Simulation Complete</div>
+        </div>
+    </div>
+
+</body>
+
+</html>

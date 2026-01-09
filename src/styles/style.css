@@ -1,0 +1,86 @@
+:root {
+    --bg-color: #050b14;
+    --card-bg: rgba(15, 29, 46, 0.8);
+    /* Used in index, investors */
+    --card-bg-solid: #0f1d2e;
+    /* Used in dashboard, treasury */
+    --text-main: #ffffff;
+    --highlight-cyan: #00f0ff;
+    --highlight-orange: #ff4d00;
+    --highlight-green: #00ff00;
+    /* Used in dashboard, treasury */
+    --gauge-empty: #1a2f45;
+    /* Used in dashboard, treasury */
+    --text-muted: #4a5a6a;
+    /* Used in dashboard */
+    --line-muted: #333;
+    --form-input-bg: rgba(0, 0, 0, 0.3);
+    /* investors */
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    overflow-x: hidden;
+}
+
+/* Navbar Shared Styles */
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(15, 29, 46, 0.95);
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--highlight-cyan);
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.nav-link {
+    color: #aaa;
+    text-decoration: none;
+    margin: 0 2rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.nav-link:hover {
+    color: var(--highlight-cyan);
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+}
+
+.nav-link.active {
+    color: var(--highlight-cyan);
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background: var(--highlight-orange);
+    box-shadow: 0 0 10px var(--highlight-orange);
+}
+
+@media (max-width: 900px) {
+    .navbar {
+        flex-direction: column;
+    }
+
+    .nav-link {
+        margin: 0.5rem 0;
+    }
+}

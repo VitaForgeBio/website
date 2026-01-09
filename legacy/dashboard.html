@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitaForge - Asset Dashboard</title>
+    <link rel="icon" href="favicon.ico">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+
+    <script src="auth.js"></script>
+    <script src="dashboard.js" defer></script>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="investors.html" class="nav-link">Investors</a>
+        <a href="dashboard.html" class="nav-link active">Asset Dashboard</a>
+        <a href="treasury.html" class="nav-link">Bitcoin Treasury</a>
+    </nav>
+
+    <header>
+        <img src="VitaForge_Logo.png" alt="VitaForge Logo" class="header-logo">
+        <p style="color: #889; margin-top: 0.5rem;">Interactive Tokenized Portfolio (Live Data)</p>
+    </header>
+
+    <div id="error-box" class="error-message">
+        Unable to load 'assets.md'.<br>Ensure you are running on a local server (python -m http.server).
+    </div>
+
+    <div class="dashboard-container" id="grid"></div>
+
+    <div class="modal-overlay" id="overlay">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">CLOSE VIEW</button>
+
+            <div class="modal-toggle-container">
+                <div class="toggle-wrapper">
+                    <span id="btn-background" class="toggle-btn"
+                        onclick="switchModalView('background')">Background</span>
+                    <span id="btn-progress" class="toggle-btn active"
+                        onclick="switchModalView('progress')">Progress</span>
+                    <span id="btn-capital" class="toggle-btn" onclick="switchModalView('capital')">Capital Flow</span>
+                    <span id="btn-tokenomics" class="toggle-btn"
+                        onclick="switchModalView('tokenomics')">Tokenomics</span>
+                </div>
+            </div>
+
+            <div id="modal-view-background" class="modal-view hidden">
+                <div class="background-text-container">
+                    <div class="background-text-title" id="bg-view-title">Asset Background</div>
+                    <div class="background-text-body" id="bg-view-body"></div>
+                </div>
+            </div>
+
+            <div id="modal-view-progress" class="modal-view">
+                <svg class="connector-lines" id="connector-svg"></svg>
+                <div id="milestones-layer" class="milestone-container"></div>
+                <div class="modal-gauge-container">
+                    <svg width="200" height="200" viewBox="0 0 100 100" style="transform: rotate(-90deg);">
+                        <circle cx="50" cy="50" r="40" class="gauge-bg" />
+                        <circle cx="50" cy="50" r="40" class="gauge-fill" id="modal-gauge-fill" pathLength="100"
+                            stroke-dasharray="100" stroke-dashoffset="100" />
+                    </svg>
+                    <div style="position:absolute; text-align:center;">
+                        <h2 id="modal-title">VF-1</h2>
+                        <span id="modal-percent" style="color:#aaa;">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="modal-view-capital" class="modal-view hidden">
+                <div id="modal-flow-container"></div>
+            </div>
+
+            <div id="modal-view-tokenomics" class="modal-view hidden">
+                <table class="token-table">
+                    <thead>
+                        <tr>
+                            <th>Release</th>
+                            <th>Entry Token Price</th>
+                            <th>Exit Token Price</th>
+                            <th>Return</th>
+                        </tr>
+                    </thead>
+                    <tbody id="token-table-body"></tbody>
+                </table>
+                <div class="total-tokens-container">
+                    <div class="total-tokens-label">Total Token Supply</div>
+                    <div class="total-tokens-value" id="total-tokens-display">0</div>
+                </div>
+                <div class="slider-container">
+                    <div class="slider-labels"><span id="slider-min-label">Min: $0</span><span
+                            id="slider-max-label">Max: $0</span></div>
+                    <input type="range" id="exit-slider" min="0" max="100" step="1000000">
+                    <div class="current-val-display">Target Exit<sup>*</sup>: <span id="slider-val-display"
+                            style="color:var(--highlight-cyan);">$0</span></div>
+                    <div class="disclaimer-text">*Total deal size less taxes, fees, and closing costs.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

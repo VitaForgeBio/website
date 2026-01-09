@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitaForge - Investors</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="investors.css">
+
+    <script src="auth.js"></script>
+    <script src="investors.js" defer></script>
+    <link rel="icon" href="favicon.ico">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="investors.html" class="nav-link active">Investors</a>
+        <a href="dashboard.html" class="nav-link">Asset Dashboard</a>
+        <a href="treasury.html" class="nav-link">Bitcoin Treasury</a>
+    </nav>
+
+    <header class="page-header">
+        <h1>Two Engines. One Ecosystem.</h1>
+        <p class="subtitle">Select your investment strategy.</p>
+    </header>
+
+    <div class="split-container">
+
+        <div class="investor-column">
+            <div class="col-title">The Asset Investor</div>
+            <span class="col-audience">For Biotech Investors & Token Holders</span>
+
+            <div class="point-item">
+                <div class="point-title">Liquidity, Not Lockups</div>
+                <div class="point-desc">
+                    Traditional biotech VC traps capital for 10+ years. Our tokenized asset framework creates a liquid
+                    secondary market, giving you optionality to exit after early milestones like GLP Tox or Phase 1.
+                </div>
+            </div>
+            <div class="point-item">
+                <div class="point-title">Precision De-Risking</div>
+                <div class="point-desc">
+                    We minimize platform risk through <strong>Asset-Specific Isolation</strong>. You invest in specific
+                    clinical programs funded strictly to their next critical execution step. If an asset fails, it fails
+                    alone.
+                </div>
+            </div>
+            <div class="point-item">
+                <div class="point-title">High-Return Potential</div>
+                <div class="point-desc">
+                    Gain early-stage access to high-alpha assets (NRDO model) with the structural protections and
+                    liquidity usually reserved for public markets.
+                </div>
+            </div>
+        </div>
+
+        <div class="investor-column">
+            <div class="col-title">The Treasury Investor</div>
+            <span class="col-audience">For Convertible Note Holders & Macro Investors</span>
+
+            <div class="point-item">
+                <div class="point-title">Uncorrelated Volatility Engine</div>
+                <div class="point-desc">
+                    We harness <strong>Bitcoin-independent volatility</strong>—clinical trial outcomes—to drive
+                    financing. This allows us to execute leveraged Bitcoin purchases regardless of Bitcoin’s current
+                    price momentum.
+                </div>
+            </div>
+            <div class="point-item">
+                <div class="point-title">High-Alpha Treasury Growth</div>
+                <div class="point-desc">
+                    By leveraging the "high beta" nature of early-stage biotech to secure favorable financing terms, we
+                    turn clinical progress into a mechanism for aggressive, low-cost Bitcoin acquisition.
+                </div>
+            </div>
+            <div class="point-item">
+                <div class="point-title">Compartmentalized Security</div>
+                <div class="point-desc">
+                    Clinical development is funded by asset-specific raises; the treasury is funded by convertible note
+                    operations. Your Bitcoin exposure is protected from biotech burn rates.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="summary-section">
+        <div class="summary-text">
+            "VitaForge separates the <strong>burn</strong> from the <strong>earn</strong>.
+            Biotech Investors get pure exposure to scientific breakthroughs without platform dilution,
+            while Treasury Investors get a Bitcoin accumulation strategy powered by an uncorrelated volatility engine."
+        </div>
+    </div>
+
+    <div class="form-section">
+        <div class="form-card">
+            <h2 style="color:white; margin-top:0; text-align:center;">Request Access</h2>
+            <p style="color:#aaa; text-align:center; margin-bottom:2rem;">Select your area of interest to reach the
+                appropriate team.</p>
+
+            <form id="investorForm" onsubmit="handleRouting(event)">
+                <div class="form-group">
+                    <label>I am interested in</label>
+                    <select id="interestSelect">
+                        <option value="biotech">Biotech Asset Opportunities (Tokenized)</option>
+                        <option value="treasury">Bitcoin Treasury (Convertible Notes)</option>
+                        <option value="general">General Inquiries</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" placeholder="John Doe" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="john@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea rows="4" placeholder="Tell us about your firm or investment thesis..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Send Inquiry</button>
+            </form>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>

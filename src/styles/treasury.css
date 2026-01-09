@@ -1,0 +1,176 @@
+/* Treasury Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+.header-logo {
+    max-width: 400px;
+    width: 90%;
+    height: auto;
+    margin-bottom: 0.5rem;
+}
+
+.strategy-text {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+    color: #ccc;
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
+
+.highlight-text {
+    color: var(--highlight-orange);
+    font-weight: bold;
+}
+
+/* --- Animation Section --- */
+.animation-container {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    background: radial-gradient(circle at center, #1a2f45 0%, #050b14 70%);
+    border: 1px solid var(--highlight-cyan);
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.1);
+    overflow: hidden;
+    margin-bottom: 3rem;
+    text-align: left;
+}
+
+canvas {
+    display: block;
+}
+
+/* --- UI Elements --- */
+.anim-label {
+    position: absolute;
+    color: var(--highlight-cyan);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    pointer-events: none;
+    text-shadow: 0 0 5px black;
+}
+
+.label-equity {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.label-treasury {
+    top: 20px;
+    right: 30px;
+    color: var(--highlight-orange);
+}
+
+/* Two-Column Counter Layout */
+.treasury-counter {
+    position: absolute;
+    top: 40px;
+    right: 30px;
+    text-align: right;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 50px;
+    row-gap: 20px;
+    align-items: start;
+}
+
+.counter-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 15px;
+}
+
+.hero-amount {
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0 20px var(--highlight-orange);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+}
+
+.sub-amount {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #ddd;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+}
+
+.btc-label {
+    color: #889;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    margin-top: 2px;
+    letter-spacing: 1px;
+}
+
+.note-info {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -220%);
+    color: #fff;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    border: 1px solid var(--highlight-orange);
+    white-space: nowrap;
+}
+
+.note-info.visible {
+    opacity: 1;
+}
+
+#error-box {
+    display: none;
+    color: #ff4d00;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.status-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--highlight-green);
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    text-shadow: 0 0 20px var(--highlight-green);
+    display: none;
+    pointer-events: none;
+}
+
+/* Specific Counter Styles */
+#vf-price {
+    color: #00f0ff;
+    text-shadow: 0 0 20px #00f0ff;
+}
+
+#btc-price {
+    color: #ffcc00;
+}
+
+#debt-counter {
+    color: #ff9999;
+}
+
+#retired-counter {
+    color: #99ff99;
+}

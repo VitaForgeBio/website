@@ -1,0 +1,330 @@
+{
+    "globalSettings": {
+        "startDate": "2026-01-01",
+        "endDate": "2037-01-01",
+        "timeFlowRate": 1,
+        "startingShares": 100000000,
+        "lowerRangeBitcoinVol": 20,
+        "upperRangeBitcoinVol": 75,
+        "medianVolStart": 55,
+        "medianVolSlope": -0.025,
+        "bitcoinVolRandomness": 15,
+        "bitcoinVolUpdateFreq": 5,
+        "maxBitcoinConvertFreq": 120,
+        "bitcoinStartPrice": 93000,
+        "bitcoinAnnualChangeMin": -0.20,
+        "bitcoinAnnualChangeMax": 0.50
+    },
+    "assets": [
+        {
+            "id": "VF-1",
+            "name": "VF-1",
+            "milestones": [
+                {
+                    "date": "2026-03-01",
+                    "name": "Asset Licensing",
+                    "note": 0,
+                    "ev": 83
+                },
+                {
+                    "date": "2026-09-01",
+                    "name": "GMP / CMC",
+                    "note": 0,
+                    "ev": 100
+                },
+                {
+                    "date": "2027-03-01",
+                    "name": "GLP Tox",
+                    "note": 0,
+                    "ev": 125
+                },
+                {
+                    "date": "2027-07-01",
+                    "name": "IND Accepted",
+                    "note": 0,
+                    "ev": 125
+                },
+                {
+                    "date": "2027-10-01",
+                    "name": "Phase 1 Begins",
+                    "note": 25,
+                    "ev": 130
+                },
+                {
+                    "date": "2028-06-01",
+                    "name": "Phase 1 Data Reported",
+                    "note": 25,
+                    "ev": 150
+                },
+                {
+                    "date": "2028-08-01",
+                    "name": "IRB Accepted",
+                    "note": 0,
+                    "ev": 175
+                },
+                {
+                    "date": "2028-12-01",
+                    "name": "Phase 2 Begins",
+                    "note": 0,
+                    "ev": 200
+                },
+                {
+                    "date": "2029-10-01",
+                    "name": "Phase 2 Data Reported",
+                    "note": 75,
+                    "ev": 300
+                }
+            ],
+            "exitDate": "2029-12-01",
+            "exitAmount": 385
+        },
+        {
+            "id": "VF-2",
+            "name": "VF-2",
+            "milestones": [
+                {
+                    "date": "2026-09-01",
+                    "name": "Asset Licensing",
+                    "note": 0,
+                    "ev": 83
+                },
+                {
+                    "date": "2027-04-01",
+                    "name": "GMP / CMC",
+                    "note": 0,
+                    "ev": 100
+                },
+                {
+                    "date": "2027-09-01",
+                    "name": "GLP Tox",
+                    "note": 0,
+                    "ev": 125
+                },
+                {
+                    "date": "2027-12-01",
+                    "name": "IND Accepted",
+                    "note": 0,
+                    "ev": 125
+                },
+                {
+                    "date": "2028-02-01",
+                    "name": "Phase 1 Begins",
+                    "note": 25,
+                    "ev": 130
+                },
+                {
+                    "date": "2028-10-01",
+                    "name": "Phase 1 Data Reported",
+                    "note": 25,
+                    "ev": 250
+                },
+                {
+                    "date": "2029-01-01",
+                    "name": "IRB Accepted",
+                    "note": 0,
+                    "ev": 325
+                },
+                {
+                    "date": "2029-05-01",
+                    "name": "Phase 2 Begins",
+                    "note": 0,
+                    "ev": 400
+                },
+                {
+                    "date": "2030-03-01",
+                    "name": "Phase 2 Data Reported",
+                    "note": 75,
+                    "ev": 800
+                }
+            ],
+            "exitDate": "2031-04-01",
+            "exitAmount": 1200
+        },
+        {
+            "id": "VF-3",
+            "name": "VF-3",
+            "milestones": [
+                {
+                    "date": "2028-09-01",
+                    "name": "Asset License",
+                    "note": 0,
+                    "ev": 83
+                },
+                {
+                    "date": "2029-04-01",
+                    "name": "GMP CMC",
+                    "note": 0,
+                    "ev": 100
+                },
+                {
+                    "date": "2029-09-01",
+                    "name": "GLP Tox",
+                    "note": 0,
+                    "ev": 125
+                },
+                {
+                    "date": "2029-12-01",
+                    "name": "IND Accepted",
+                    "note": 0,
+                    "ev": 125
+                },
+                {
+                    "date": "2030-02-01",
+                    "name": "Phase 1 Begins",
+                    "note": 25,
+                    "ev": 130
+                },
+                {
+                    "date": "2030-10-01",
+                    "name": "Phase 1 Data",
+                    "note": 25,
+                    "ev": 200
+                },
+                {
+                    "date": "2031-01-01",
+                    "name": "IRB Accepted",
+                    "note": 0,
+                    "ev": 225
+                },
+                {
+                    "date": "2031-05-01",
+                    "name": "Phase 2 Begins",
+                    "note": 0,
+                    "ev": 250
+                },
+                {
+                    "date": "2032-03-01",
+                    "name": "Phase 2 Data",
+                    "note": 75,
+                    "ev": 550
+                }
+            ],
+            "exitDate": "2033-09-01",
+            "exitAmount": 600
+        },
+        {
+            "id": "VF-4",
+            "name": "VF-4",
+            "milestones": [
+                {
+                    "date": "2030-09-01",
+                    "name": "Asset License",
+                    "note": 0,
+                    "ev": 83
+                },
+                {
+                    "date": "2031-04-01",
+                    "name": "GMP CMC",
+                    "note": 0,
+                    "ev": 100
+                },
+                {
+                    "date": "2031-09-01",
+                    "name": "GLP Tox",
+                    "note": 0,
+                    "ev": 125
+                },
+                {
+                    "date": "2031-12-01",
+                    "name": "IND Accepted",
+                    "note": 0,
+                    "ev": 125
+                },
+                {
+                    "date": "2032-02-01",
+                    "name": "Phase 1 Begins",
+                    "note": 25,
+                    "ev": 130
+                },
+                {
+                    "date": "2032-10-01",
+                    "name": "Phase 1 Data",
+                    "note": 25,
+                    "ev": 200
+                },
+                {
+                    "date": "2033-01-01",
+                    "name": "IRB Accepted",
+                    "note": 0,
+                    "ev": 225
+                },
+                {
+                    "date": "2033-05-01",
+                    "name": "Phase 2 Begins",
+                    "note": 0,
+                    "ev": 250
+                },
+                {
+                    "date": "2034-03-01",
+                    "name": "Phase 2 Data",
+                    "note": 75,
+                    "ev": 600
+                }
+            ],
+            "exitDate": "2035-08-01",
+            "exitAmount": 800
+        },
+        {
+            "id": "VF-5",
+            "name": "VF-5",
+            "milestones": [
+                {
+                    "date": "2031-09-01",
+                    "name": "Asset License",
+                    "note": 0,
+                    "ev": 70
+                },
+                {
+                    "date": "2032-04-01",
+                    "name": "GMP CMC",
+                    "note": 0,
+                    "ev": 90
+                },
+                {
+                    "date": "2032-09-01",
+                    "name": "GLP Tox",
+                    "note": 0,
+                    "ev": 100
+                },
+                {
+                    "date": "2032-12-01",
+                    "name": "IND Accepted",
+                    "note": 0,
+                    "ev": 100
+                },
+                {
+                    "date": "2033-02-01",
+                    "name": "Phase 1 Begins",
+                    "note": 25,
+                    "ev": 110
+                },
+                {
+                    "date": "2033-10-01",
+                    "name": "Phase 1 Data",
+                    "note": 25,
+                    "ev": 150
+                },
+                {
+                    "date": "2034-01-01",
+                    "name": "IRB Accepted",
+                    "note": 0,
+                    "ev": 175
+                },
+                {
+                    "date": "2034-05-01",
+                    "name": "Phase 2 Begins",
+                    "note": 0,
+                    "ev": 200
+                },
+                {
+                    "date": "2035-03-01",
+                    "name": "Phase 2 Data",
+                    "note": 75,
+                    "ev": 300
+                }
+            ],
+            "exitDate": "2036-08-01",
+            "exitAmount": 350
+        }
+    ]
+}

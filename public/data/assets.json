@@ -1,0 +1,72 @@
+[
+  {
+    "id": "VF-1",
+    "name": "Anti-GDF-15 humanized monoclonal antibody",
+    "background": "VitaForge anti-GDF15 antibody, VF-1, is a novel neutralizing monoclonal antibody designed to block GDF15–GFRAL–RET signaling with high affinity and specificity. By inhibiting this stress-response cytokine pathway, VF-1 has shown strong activity in preclinical models, where it effectively suppresses downstream signaling and prevents GDF15-driven body weight loss and cachexia-related symptoms. This positions VF-1 as a promising investigational therapy for cancer- and disease-associated cachexia and other GDF15‑mediated metabolic complications.",
+    "current": 20,
+    "milestones": [
+      { "completed": 10, "label": "Preclinical Asset Search" },
+      { "completed": 20, "label": "Asset Licensed from Partner" },
+      { "completed": 30, "label": "GMP & CMC" },
+      { "completed": 40, "label": "GLP-Toxicology" },
+      { "completed": 50, "label": "IND filing (UAE)" },
+      { "completed": 60, "label": "IND Phase 1" },
+      { "completed": 70, "label": "IRB filing (UAE)" },
+      { "completed": 80, "label": "IRB Phase 2" },
+      { "completed": 90, "label": "Asset available for sale/license" }
+    ],
+    "capitalFlow": [
+      { "type": "Input", "round": "Round 1 Tokens", "label": "Asset License", "amount": 10000000 },
+      { "type": "Input", "round": "Round 2 Tokens", "label": "CMC/GMP", "amount": 8000000 },
+      { "type": "Input", "round": "Round 2 Tokens", "label": "GLP-tox", "amount": 2000000 },
+      { "type": "Input", "round": "Round 3 Tokens", "label": "IND", "amount": 10000000 },
+      { "type": "Input", "round": "Round 4 Tokens", "label": "IRB", "amount": 20000000 },
+      { "type": "Output", "label": "VitaForge, Inc", "percent": 48 },
+      { "type": "Output", "label": "Licensor", "percent": 8 },
+      { "type": "Output", "label": "Round 1 Token Offering", "percent": 12 },
+      { "type": "Output", "label": "Round 2 Token Offering", "percent": 10 },
+      { "type": "Output", "label": "Round 3 Token Offering", "percent": 8 },
+      { "type": "Output", "label": "Round 4 Token Offering", "percent": 14 }
+    ],
+    "tokenomics": {
+      "totalTokens": 100000000,
+      "exitTargetMin": 750000000,
+      "exitTargetMax": 1500000000
+    }
+  },
+  {
+    "id": "VF-2",
+    "name": "Arginine tRNA Suppressor Gene Therapy",
+    "background": "VitaForge VF-2 is a preclinical, AAV-delivered gene therapy designed to correct age-related nonsense mutations by using a codon-suppressor system to restore full-length, functional proteins. Early in vivo data show that VF-2 distributes to multiple organs, appears well tolerated over short-term studies, and aims to address mutations in key genes involved in DNA repair, tumor suppression, and neurodegeneration, positioning it as a potentially first-in-class longevity-focused genetic medicine.",
+    "current": 10,
+    "milestones": [
+      { "completed": 10, "label": "Preclinical Asset Search" },
+      { "completed": 20, "label": "Asset Licensed from Artan Bio" },
+      { "completed": 30, "label": "GMP & CMC" },
+      { "completed": 40, "label": "GLP-Toxicology" },
+      { "completed": 50, "label": "IND filing (UAE)" },
+      { "completed": 60, "label": "IND Phase 1" },
+      { "completed": 70, "label": "IRB filing (UAE)" },
+      { "completed": 80, "label": "IRB Phase 2" },
+      { "completed": 90, "label": "Asset available for sale/license" }
+    ],
+    "capitalFlow": [
+      { "type": "Input", "round": "Round 1 Tokens", "label": "Asset License", "amount": 7500000 },
+      { "type": "Input", "round": "Round 2 Tokens", "label": "CMC/GMP", "amount": 10500000 },
+      { "type": "Input", "round": "Round 2 Tokens", "label": "GLP-tox", "amount": 2000000 },
+      { "type": "Input", "round": "Round 3 Tokens", "label": "IND", "amount": 10000000 },
+      { "type": "Input", "round": "Round 4 Tokens", "label": "IRB", "amount": 20000000 },
+      { "type": "Output", "label": "VitaForge, Inc", "percent": 48 },
+      { "type": "Output", "label": "Licensor", "percent": 8 },
+      { "type": "Output", "label": "Round 1 Token Offering", "percent": 9 },
+      { "type": "Output", "label": "Round 2 Token Offering", "percent": 12.5 },
+      { "type": "Output", "label": "Round 3 Token Offering", "percent": 8 },
+      { "type": "Output", "label": "Round 4 Token Offering", "percent": 14 }
+    ],
+    "tokenomics": {
+      "totalTokens": 100000000,
+      "exitTargetMin": 1250000000,
+      "exitTargetMax": 7500000000
+    }
+  }
+]
