@@ -69,9 +69,9 @@ export default function Dashboard() {
 
     return (
         <div className="container">
-            <header className="page-header" style={{ padding: '2rem' }}>
+            <header className="page-header" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <h1>Asset Dashboard</h1>
-                <p className="subtitle">Select an asset to view details.</p>
+                <p className="subtitle" style={{ textAlign: 'center', margin: '0' }}>Select an asset to view details.</p>
             </header>
 
             <div id="grid" className="grid">
