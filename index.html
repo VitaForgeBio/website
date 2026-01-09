@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VitaForge - Home</title>
+    <link rel="icon" href="favicon.ico">
     <script src="auth.js"></script>
     <style>
         :root {
@@ -19,7 +20,7 @@
             color: var(--text-main);
             overflow-x: hidden;
             /* Hidden by default, auth.js will reveal */
-            visibility: hidden; transition: opacity 0.5s ease;
+            visibility: hidden; 
         }
         /* Navbar */
         .navbar {
@@ -45,6 +46,8 @@
             font-weight: 600;
             transition: all 0.3s ease;
             position: relative;
+            display: flex;
+            align-items: center;
         }
         .nav-link:hover { color: var(--highlight-cyan); text-shadow: 0 0 8px rgba(0, 240, 255, 0.5); }
         .nav-link.active { color: var(--highlight-cyan); }
@@ -63,14 +66,12 @@
             text-align: center;
             background: radial-gradient(circle at center, #0f1d2e 0%, #050b14 70%);
         }
-        h1 {
-            font-size: 4rem;
-            margin: 0;
-            background: linear-gradient(90deg, var(--highlight-cyan), #ffffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-            letter-spacing: 5px;
+        .hero-logo {
+            max-width: 600px;
+            width: 90%;
+            height: auto;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.3));
         }
         p.subtitle {
             font-size: 1.5rem;
@@ -107,7 +108,7 @@
     </nav>
 
     <div class="hero">
-        <h1>VitaForge</h1>
+        <img src="VitaForge_Logo.png" alt="VitaForge Logo" class="hero-logo">
         <p class="subtitle">The Intersection of Biotech Innovation and Blockchain Finance.</p>
         <a href="dashboard.html" class="cta-btn">View Portfolio</a>
     </div>

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VitaForge - Bitcoin Treasury</title>
+    <link rel="icon" href="favicon.ico">
     <script src="auth.js"></script>
     <style>
         :root {
@@ -22,7 +23,7 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             overflow-x: hidden;
-            visibility: hidden; transition: opacity 0.5s ease;
+            visibility: hidden;
         }
 
         /* --- Navbar --- */
@@ -50,6 +51,14 @@
             font-weight: 600;
             transition: all 0.3s ease;
             position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            height: 40px;
+            width: auto;
+            margin-right: 10px;
         }
 
         .nav-link:hover { color: var(--highlight-cyan); text-shadow: 0 0 8px rgba(0, 240, 255, 0.5); }
@@ -70,15 +79,13 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
+            text-align: center;
         }
 
-        h1 {
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            background: linear-gradient(90deg, var(--highlight-cyan), #ffffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .header-logo {
+            max-width: 400px;
+            width: 90%;
+            height: auto;
             margin-bottom: 0.5rem;
         }
 
@@ -107,6 +114,7 @@
             box-shadow: 0 0 30px rgba(0, 240, 255, 0.1);
             overflow: hidden;
             margin-bottom: 3rem;
+            text-align: left;
         }
 
         canvas { display: block; }
@@ -216,13 +224,16 @@
 <body>
 
     <nav class="navbar">
-        <a href="index.html" class="nav-link">Home</a>
+        <a href="index.html" class="nav-link">
+            <img src="VitaForge_Logo.png" alt="VitaForge" class="nav-logo">
+            Home
+        </a>
         <a href="dashboard.html" class="nav-link">Asset Dashboard</a>
         <a href="treasury.html" class="nav-link active">Bitcoin Treasury</a>
     </nav>
 
     <div class="container">
-        <h1>Volatility Harvesting Strategy</h1>
+        <img src="VitaForge_Logo.png" alt="VitaForge Logo" class="header-logo">
         <p class="strategy-text">
             We monetize volatility. Assets (Left) drive milestones. Milestones drive equity volatility (Center). 
             We harvest this volatility via Convertible Notes when implied volatility spikes or Bitcoin surges, 
