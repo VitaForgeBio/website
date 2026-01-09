@@ -19,6 +19,7 @@ export default function Treasury() {
     const errorBoxRef = useRef(null);
 
     const [loading, setLoading] = useState(true);
+    const [started, setStarted] = useState(false);
     const configRef = useRef({});
     const simulationDataRef = useRef(null);
 
@@ -236,7 +237,7 @@ export default function Treasury() {
             let btcToEmit = 0;
 
             if (type === 'exit') {
-                msg = `EXIT EVENT! Liquidating...`;
+                msg = `EXIT EVENT! BTC Buy`;
             } else {
                 // Construct specific message prefix
                 let prefix = "";
@@ -288,7 +289,7 @@ export default function Treasury() {
                 const isExit = (type === 'exit');
                 const particleCount = isExit ? 25 : 8;
                 const originX = width / 2;
-                const offset = height * 0.2;
+                const offset = height * 0.3;
                 const originY = isExit ? (height / 2 + offset) : (height / 2 - offset);
 
                 for (let i = 0; i < particleCount; i++) {
@@ -483,7 +484,7 @@ export default function Treasury() {
             const centerY = height / 2;
             const startX = width * 0.275;
             const endX = width * 0.65;
-            const rectH = 100;
+            const rectH = 200;
             const bottomY = centerY + (rectH / 2) - 10; // 10px padding from bottom
 
             ctx.save();
@@ -554,7 +555,7 @@ export default function Treasury() {
         }
 
         function drawAssetsAndExits() {
-            const offset = height * 0.2;
+            const offset = height * 0.3;
             const exitX = width / 2; const exitY = height / 2 + offset;
             assetInstances.forEach(inst => {
                 if (inst.state === 'hidden' || inst.state === 'gone') return;
@@ -582,7 +583,7 @@ export default function Treasury() {
             // Trim 25% from left (was 0.15 start, now 0.275 start)
             const startX = width * 0.275;
             const endX = width * 0.65; // Total range is roughly 37.5% of width now
-            const rectH = 100;
+            const rectH = 200;
 
             // Background Rectangle (Black with rounded corners)
             ctx.fillStyle = "#000000";
@@ -594,7 +595,7 @@ export default function Treasury() {
             ctx.beginPath();
             ctx.moveTo(startX, centerY);
             equityVolatility *= 0.96;
-            const amplitude = 5 + (equityVolatility * 60);
+            const amplitude = 10 + (equityVolatility * 100);
             const lineColor = equityVolatility > 0.1 ? activePulseColor : 'rgba(0, 240, 255, 0.3)';
 
             for (let x = startX; x <= endX; x += 5) {
@@ -609,12 +610,12 @@ export default function Treasury() {
             ctx.font = "bold 12px sans-serif";
             ctx.textAlign = "left";
             ctx.textBaseline = "top";
-            // Padding: 10px inside the rect (startX + 5, centerY - 45)
-            ctx.fillText("EQUITY VOLATILITY", startX, centerY - 45);
+            // Padding: 10px inside the rect (startX + 5, top is centerY - 100) -> -90
+            ctx.fillText("EQUITY VOLATILITY", startX, centerY - 90);
         }
 
         function drawBoxes() {
-            const offset = height * 0.2;
+            const offset = height * 0.3;
             const cx = width / 2; const noteY = height / 2 - offset; const exitY = height / 2 + offset;
             noteBoxIntensity *= 0.96;
             const glow = noteBoxIntensity > 0.1 ? 1 : 0.2;
@@ -644,13 +645,18 @@ export default function Treasury() {
         }
 
 
-        animate();
+        // Initial Draw to show static state behind shield
+        drawBitcoinVol(); drawAssetsAndExits(); drawEquityLine(); drawBoxes(); drawDateTicker(); drawTicker();
+
+        if (started) {
+            animate();
+        }
 
         return () => {
             isRunning = false;
             cancelAnimationFrame(animationId);
         };
-    }, [loading]);
+    }, [loading, started]);
 
     if (loading) return <div className="container" style={{ color: 'white' }}>Loading Treasury Simulation...</div>;
 
@@ -666,7 +672,12 @@ export default function Treasury() {
 
             <div className="animation-container">
                 <canvas ref={canvasRef}></canvas>
-                <div className="anim-label label-treasury">Treasury Yield</div>
+                {!started && !loading && (
+                    <div className="start-shield">
+                        <button className="start-btn" onClick={() => setStarted(true)}>GO</button>
+                    </div>
+                )}
+                <div className="anim-label label-treasury">Treasury Performance</div>
 
                 <div className="treasury-counter">
                     <div className="counter-column">

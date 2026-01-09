@@ -45,6 +45,47 @@ canvas {
     display: block;
 }
 
+/* --- Start Shield --- */
+.start-shield {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(5, 11, 20, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: opacity 0.5s ease;
+}
+
+.start-btn {
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid var(--highlight-green);
+    color: var(--highlight-green);
+    font-size: 3rem;
+    font-weight: 900;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-btn:hover {
+    background: var(--highlight-green);
+    color: #000;
+    box-shadow: 0 0 50px var(--highlight-green);
+    transform: scale(1.1);
+}
+
 /* --- UI Elements --- */
 .anim-label {
     position: absolute;

@@ -11,7 +11,7 @@
         "bitcoinVolRandomness": 0.5,
         "bitcoinVolUpdateFreq": 60,
         "maxBitcoinConvertFreq": 380,
-        "secondsPerMonth": 4,
+        "secondsPerMonth": 1,
         "bitcoinStartPrice": 93000,
         "bitcoinAnnualChangeMin": -0.20,
         "bitcoinAnnualChangeMax": 0.50
