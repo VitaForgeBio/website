@@ -55,10 +55,21 @@ canvas {
     background: rgba(5, 11, 20, 0.6);
     backdrop-filter: blur(4px);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 100;
     transition: opacity 0.5s ease;
+}
+
+.shield-description {
+    color: white;
+    max-width: 800px;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.65rem;
+    line-height: 1.6;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
 .start-btn {

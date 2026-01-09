@@ -240,9 +240,11 @@ export default function Treasury() {
             }
 
             let btcToEmit = 0;
+            let msgColor = "#ffffff";
 
             if (type === 'exit') {
                 msg = `EXIT EVENT! BTC Buy`;
+                msgColor = "#ff4d00"; // Orange
             } else {
                 // Construct specific message prefix
                 let prefix = "";
@@ -258,6 +260,7 @@ export default function Treasury() {
                     // "VF1: IND Accepted: Leverage Exceeded" format or similar
                     // We use the prefix (Asset Name or BTC)
                     msg = `${prefix}: Leverage Exceeded`;
+                    msgColor = "#ff3333"; // Red
                 } else if (amountUSD > 0) {
                     outstandingDebt += amountUSD;
                     const rDate = new Date(currentDate);
@@ -278,16 +281,18 @@ export default function Treasury() {
 
                     // Success Message
                     msg = `${prefix}. $${amountUSD}M note issued`;
+                    msgColor = "#ff4d00"; // Orange
                     noteBoxIntensity = 1.0;
                 } else {
                     // Just a milestone without funding (amount == 0 passed)
                     msg = prefix;
+                    msgColor = "#aaaaaa"; // Light Grey
                 }
             }
 
             // Push to Queue for Scrolling Ticker
             if (msg) {
-                messageQueue.push(msg);
+                messageQueue.push({ text: msg, color: msgColor });
             }
 
             if (type === 'exit' || btcToEmit > 0) {
@@ -490,12 +495,13 @@ export default function Treasury() {
             const startX = equityStartX;
             const endX = equityEndX;
             const rectH = 200;
-            const bottomY = centerY + (rectH / 2) - 10; // 10px padding from bottom
+            const topY = centerY - rectH / 2;
+            const bottomY = centerY + rectH / 2 - 15; // Start spawning just inside or below
 
             ctx.save();
             // Clip to box area to handle scrolling text masking
             ctx.beginPath();
-            ctx.roundRect(startX - 10, centerY - rectH / 2, (endX - startX) + 20, rectH, 15);
+            ctx.roundRect(startX - 10, topY, (endX - startX) + 20, rectH, 15);
             ctx.clip();
 
             // Spawn next message if gap allows
@@ -504,49 +510,41 @@ export default function Treasury() {
                 if (activeTickers.length === 0) {
                     canSpawn = true;
                 } else {
-                    // Check gap from the last spawned ticker
+                    // Check gap from the last spawned ticker (Vertical Gap)
                     const lastTicker = activeTickers[activeTickers.length - 1];
-                    const nextText = messageQueue[0];
-                    const nextWidth = ctx.measureText(nextText).width;
-
-                    // Gap Logic: 10px spacing
-                    // lastTicker.x (Left Edge) must be > startX + nextWidth + 10
-                    if (lastTicker.x > (startX + nextWidth + 10)) {
+                    // Gap Logic: 30px spacing
+                    if (lastTicker.y < (bottomY - 30)) {
                         canSpawn = true;
                     }
                 }
 
                 if (canSpawn) {
-                    const text = messageQueue.shift();
+                    const msgObj = messageQueue.shift();
                     activeTickers.push({
-                        text: text,
-                        x: startX - 20,
-                        width: ctx.measureText(text).width
+                        text: msgObj.text,
+                        color: msgObj.color,
+                        x: equityCenterX, // Center horizontally
+                        y: bottomY // Start at bottom
                     });
                 }
             }
 
-            if (!currentTicker && activeTickers.length === 0 && messageQueue.length > 0) {
-                // Initial catch - should be handled by logic above, but keeping safe fallback if needed
-                // actually the logic above handles it.
-            }
-
             // Update and Draw active tickers
+            ctx.textAlign = "center";
+            // ctx.fillStyle = "#fff"; // Handled per-item
+
             for (let i = activeTickers.length - 1; i >= 0; i--) {
                 let t = activeTickers[i];
-                ctx.fillText(t.text, t.x, bottomY);
-                t.x += 2; // Scroll Right
+                ctx.fillStyle = t.color || "#fff";
+                ctx.fillText(t.text, t.x, t.y);
+                t.y -= 1.0; // Scroll Up
 
-                // Remove if fully off screen
-                if (t.x > endX + 20) {
+                // Remove if fully off screen (top)
+                if (t.y < topY + 10) {
                     activeTickers.splice(i, 1);
                 }
             }
 
-            // Legacy cleanup
-            if (currentTicker && currentTicker.text) {
-                // handle left over if any
-            }
             ctx.restore();
         }
 
@@ -679,6 +677,11 @@ export default function Treasury() {
                 <canvas ref={canvasRef}></canvas>
                 {!started && !loading && (
                     <div className="start-shield">
+                        <p className="shield-description">
+                            VitaForge is currently in the Seed phase preparing for deployment.
+                            While treasury operations have not yet commenced, our strategy is fully architected.
+                            Experience the model in motion—press Go to start the simulation.
+                        </p>
                         <button className="start-btn" onClick={() => setStarted(true)}>GO</button>
                     </div>
                 )}
