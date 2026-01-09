@@ -243,7 +243,11 @@ export default function Treasury() {
             let msgColor = "#ffffff";
 
             if (type === 'exit') {
-                msg = `EXIT EVENT! BTC Buy`;
+                if (details && details.asset) {
+                    msg = `${details.asset}: $${specificAmountUSD}M EXIT EVENT! BTC Buy`;
+                } else {
+                    msg = `EXIT EVENT! BTC Buy`;
+                }
                 msgColor = "#ff4d00"; // Orange
             } else {
                 // Construct specific message prefix
@@ -566,7 +570,7 @@ export default function Treasury() {
                 if (inst.state === 'exiting') {
                     const dx = exitX - inst.x; const dy = exitY - inst.y; const dist = Math.sqrt(dx * dx + dy * dy);
                     if (dist < 5) {
-                        triggerAction('exit');
+                        triggerAction('exit', inst.def.exitAmount, { asset: inst.def.name });
                         const exitBTC = Math.floor((inst.def.exitAmount * 1000000) / btcPrice);
                         incrementCounter(exitBTC);
                         inst.currentEV = 0;
@@ -623,16 +627,41 @@ export default function Treasury() {
             noteBoxIntensity *= 0.96;
             const glow = noteBoxIntensity > 0.1 ? 1 : 0.2;
             const boxColor = noteBoxIntensity > 0.1 ? activePulseColor : '#ff4d00';
+
+            // Text Metrics
+            ctx.font = "bold 24px sans-serif";
+            const noteText = "CONVERTIBLE NOTE";
+            const exitText = "EXIT EVENT";
+            const noteMetrics = ctx.measureText(noteText);
+            const exitMetrics = ctx.measureText(exitText);
+            const padding = 5;
+            // Approx height for 24px font + padding. ascent + descent is roughly font size. 
+            // Using a fixed height that fits 24px comfortably + 5px padding on top/bottom = 34px, 
+            // but let's give slightly more room for ascenders: 40px seems safe and tight enough compared to 80px.
+            // Let's strictly follow "5px gap all the way around". 
+            // 24px cap height approx. Total height ~34px. If we assume "text" is ~24px high block.
+            const boxHeight = 24 + (padding * 2);
+
+            const noteW = noteMetrics.width + (padding * 2);
+            const exitW = exitMetrics.width + (padding * 2);
+
+            // Convertible Note Box
             ctx.fillStyle = `rgba(15, 29, 46, 0.8)`; ctx.strokeStyle = `rgba(${hexToRgb(boxColor)}, ${glow})`; ctx.lineWidth = 2;
             if (noteBoxIntensity > 0.1) ctx.fillStyle = `rgba(${hexToRgb(activePulseColor)}, 0.2)`;
-            ctx.beginPath(); ctx.roundRect(cx - 140, noteY - 40, 280, 80, 10); ctx.fill(); ctx.stroke();
-            ctx.fillStyle = "#fff"; ctx.font = "bold 24px sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText("CONVERTIBLE NOTE", cx, noteY);
+            ctx.beginPath();
+            ctx.roundRect(cx - (noteW / 2), noteY - (boxHeight / 2), noteW, boxHeight, 5);
+            ctx.fill(); ctx.stroke();
+            ctx.fillStyle = "#fff"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+            ctx.fillText(noteText, cx, noteY);
 
+            // Exit Event Box
             ctx.fillStyle = `rgba(15, 29, 46, 0.8)`; ctx.strokeStyle = `rgba(255, 255, 255, 0.3)`;
             const isExiting = assetInstances.some(a => a.state === 'exiting' && Math.abs(a.y - exitY) < 50);
             if (isExiting) { ctx.strokeStyle = "#ffffff"; ctx.shadowColor = "#ffffff"; ctx.shadowBlur = 20; } else { ctx.shadowBlur = 0; }
-            ctx.beginPath(); ctx.roundRect(cx - 140, exitY - 40, 280, 80, 10); ctx.fill(); ctx.stroke(); ctx.shadowBlur = 0;
-            ctx.fillStyle = "#fff"; ctx.font = "bold 24px sans-serif"; ctx.fillText("EXIT EVENT", cx, exitY);
+            ctx.beginPath();
+            ctx.roundRect(cx - (exitW / 2), exitY - (boxHeight / 2), exitW, boxHeight, 5);
+            ctx.fill(); ctx.stroke(); ctx.shadowBlur = 0;
+            ctx.fillStyle = "#fff"; ctx.fillText(exitText, cx, exitY);
         }
 
         function drawDateTicker() {
