@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VitaForge - Asset Dashboard</title>
+    <link rel="icon" href="favicon.ico">
     <script src="auth.js"></script>
     <style>
         :root {
@@ -23,7 +24,8 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             overflow-x: hidden;
-            visibility: hidden; transition: opacity 0.5s ease;
+            /* Visibility handled by auth.js - Removed opacity:0 to fix conflict */
+            visibility: hidden; 
         }
 
         /* --- Navigation Bar --- */
@@ -51,36 +53,29 @@
             font-weight: 600;
             transition: all 0.3s ease;
             position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            height: 40px;
+            width: auto;
+            margin-right: 10px;
         }
 
-        .nav-link:hover {
-            color: var(--highlight-cyan);
-            text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
-        }
-
-        .nav-link.active {
-            color: var(--highlight-cyan);
-        }
-
+        .nav-link:hover { color: var(--highlight-cyan); text-shadow: 0 0 8px rgba(0, 240, 255, 0.5); }
+        .nav-link.active { color: var(--highlight-cyan); }
         .nav-link.active::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background: var(--highlight-orange);
-            box-shadow: 0 0 10px var(--highlight-orange);
+            content: ''; position: absolute; width: 100%; height: 2px; bottom: -5px; left: 0;
+            background: var(--highlight-orange); box-shadow: 0 0 10px var(--highlight-orange);
         }
 
         header { padding: 2rem; text-align: center; }
-        h1 {
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            background: linear-gradient(90deg, var(--highlight-cyan), #ffffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .header-logo {
+            max-width: 400px;
+            width: 90%;
+            height: auto;
+            margin-bottom: 0.5rem;
         }
 
         /* --- Grid Layout --- */
@@ -112,11 +107,7 @@
         }
 
         /* --- Gauge Styles --- */
-        .gauge-svg {
-            width: 150px;
-            height: 150px;
-            transform: rotate(-90deg);
-        }
+        .gauge-svg { width: 150px; height: 150px; transform: rotate(-90deg); }
         .gauge-bg { fill: none; stroke: var(--gauge-empty); stroke-width: 8; }
         .gauge-fill {
             fill: none; stroke: var(--highlight-cyan); stroke-width: 8;
@@ -138,81 +129,35 @@
         .modal-overlay.active { opacity: 1; visibility: visible; }
         
         .modal-content { 
-            position: relative; 
-            width: 900px; 
-            height: 650px; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
+            position: relative; width: 900px; height: 650px; 
+            display: flex; justify-content: center; align-items: center; 
         }
 
         .modal-toggle-container {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
+            position: absolute; top: 20px; left: 50%; transform: translateX(-50%); z-index: 100;
         }
 
         .toggle-wrapper {
-            background: rgba(0,0,0,0.5);
-            border-radius: 20px;
-            padding: 4px;
-            border: 1px solid var(--gauge-empty);
-            display: flex;
-            gap: 5px;
+            background: rgba(0,0,0,0.5); border-radius: 20px; padding: 4px;
+            border: 1px solid var(--gauge-empty); display: flex; gap: 5px;
         }
 
         .toggle-btn {
-            padding: 6px 15px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            border-radius: 15px;
-            transition: all 0.2s;
-            text-transform: uppercase;
-            color: #889;
-            font-weight: 600;
+            padding: 6px 15px; font-size: 0.8rem; cursor: pointer; border-radius: 15px;
+            transition: all 0.2s; text-transform: uppercase; color: #889; font-weight: 600;
         }
-
         .toggle-btn:hover { color: white; }
-        
-        .toggle-btn.active {
-            background: var(--highlight-cyan);
-            color: #000;
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
-        }
-
-        .toggle-btn.active-orange {
-            background: var(--highlight-orange);
-            color: #fff;
-            box-shadow: 0 0 15px rgba(255, 77, 0, 0.3);
-        }
-
-        .toggle-btn.active-green {
-            background: var(--highlight-green);
-            color: #000;
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
-        }
+        .toggle-btn.active { background: var(--highlight-cyan); color: #000; box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); }
+        .toggle-btn.active-orange { background: var(--highlight-orange); color: #fff; box-shadow: 0 0 15px rgba(255, 77, 0, 0.3); }
+        .toggle-btn.active-green { background: var(--highlight-green); color: #000; box-shadow: 0 0 15px rgba(0, 255, 0, 0.3); }
 
         .modal-view {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transition: opacity 0.4s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            width: 100%; height: 100%; position: absolute; top: 0; left: 0;
+            transition: opacity 0.4s ease; display: flex; justify-content: center; align-items: center;
         }
-        
-        .modal-view.hidden {
-            opacity: 0;
-            pointer-events: none;
-            z-index: -1;
-        }
+        .modal-view.hidden { opacity: 0; pointer-events: none; z-index: -1; }
 
-        /* --- Progress View Elements --- */
+        /* --- Progress View --- */
         .modal-gauge-container {
             position: absolute; width: 200px; height: 200px; z-index: 2;
             background: radial-gradient(circle, var(--card-bg) 0%, transparent 70%);
@@ -232,21 +177,17 @@
         .connector-line.future { stroke: var(--line-muted); filter: none; }
         .modal-overlay.active .connector-line { stroke-dashoffset: 0; }
 
-        /* --- Background View Styles --- */
+        /* --- Background View --- */
         #modal-view-background { padding: 40px; box-sizing: border-box; }
         .background-text-container {
-            max-width: 700px;
-            background: rgba(15, 29, 46, 0.9);
-            border: 1px solid var(--gauge-empty);
-            border-left: 4px solid var(--highlight-cyan);
-            padding: 30px;
-            border-radius: 8px;
+            max-width: 700px; background: rgba(15, 29, 46, 0.9); border: 1px solid var(--gauge-empty);
+            border-left: 4px solid var(--highlight-cyan); padding: 30px; border-radius: 8px;
             box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
         .background-text-title { color: var(--highlight-cyan); font-size: 1.5rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 2px; }
         .background-text-body { color: #ddd; line-height: 1.6; font-size: 1.1rem; }
 
-        /* --- Sankey Flow Elements --- */
+        /* --- Capital Flow --- */
         #modal-flow-container { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; margin-top: 40px; }
         .flow-svg { width: 95%; height: 90%; overflow: visible; }
         .flow-path-in, .flow-path-out { stroke-dasharray: 2000; stroke-dashoffset: 2000; fill: none; opacity: 1; stroke-linecap: butt; }
@@ -255,99 +196,51 @@
         .flow-text { font-size: 12px; fill: #fff; font-family: sans-serif; font-weight: bold; }
         .flow-val { font-size: 18px; fill: #fff; font-family: sans-serif; font-weight: bold; }
         .flow-center-box { fill: #0f1d2e; stroke: url(#grad1); stroke-width: 3; }
-        .flow-label-box { fill: rgba(0, 0, 0, 0.6); stroke-width: 1; rx: 6; }
 
-        /* --- Tokenomics View Styles --- */
-        #modal-view-tokenomics {
-            flex-direction: column;
-            justify-content: flex-start;
-            padding-top: 80px;
-        }
-
-        .token-table {
-            width: 80%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-        }
-        .token-table th, .token-table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
-        }
+        /* --- Tokenomics View --- */
+        #modal-view-tokenomics { flex-direction: column; justify-content: flex-start; padding-top: 80px; }
+        .token-table { width: 80%; border-collapse: collapse; margin-bottom: 20px; font-size: 0.9rem; }
+        .token-table th, .token-table td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(0, 240, 255, 0.2); }
         .token-table th { color: var(--highlight-cyan); text-transform: uppercase; font-size: 0.8rem; }
         .token-table tr:hover { background: rgba(0, 240, 255, 0.05); }
         .val-positive { color: var(--highlight-green); font-weight: bold; }
         .val-neutral { color: #aaa; }
 
-        .total-tokens-container {
-            width: 80%;
-            text-align: center;
-            margin-bottom: 20px;
-            padding: 10px;
-            background: rgba(0, 240, 255, 0.05);
-            border-radius: 8px;
-            border: 1px solid rgba(0, 240, 255, 0.1);
-        }
+        .total-tokens-container { width: 80%; text-align: center; margin-bottom: 20px; padding: 10px; background: rgba(0, 240, 255, 0.05); border-radius: 8px; border: 1px solid rgba(0, 240, 255, 0.1); }
         .total-tokens-label { font-size: 0.8rem; color: #aaa; text-transform: uppercase; letter-spacing: 1px; }
         .total-tokens-value { font-size: 1.4rem; color: white; font-weight: bold; margin-top: 5px; }
 
-        .slider-container {
-            width: 80%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: rgba(15, 29, 46, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid var(--gauge-empty);
-        }
+        .slider-container { width: 80%; display: flex; flex-direction: column; align-items: center; background: rgba(15, 29, 46, 0.8); padding: 20px; border-radius: 10px; border: 1px solid var(--gauge-empty); }
         .slider-labels { width: 100%; display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--highlight-cyan); margin-bottom: 10px; }
         
-        input[type=range] {
-            width: 100%;
-            -webkit-appearance: none;
-            background: transparent;
-            background-color: rgba(255, 255, 255, 0.1);
-            height: 6px;
-            border-radius: 3px;
-            outline: none;
-            background-image: linear-gradient(90deg, var(--highlight-orange), var(--highlight-orange));
-            background-size: 0% 100%;
-            background-repeat: no-repeat;
-            cursor: pointer;
-        }
-        
-        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; background: transparent; border-radius: 3px; border: none; }
+        input[type=range] { width: 100%; -webkit-appearance: none; background: transparent; background-color: rgba(255, 255, 255, 0.1); height: 6px; border-radius: 3px; outline: none; background-image: linear-gradient(90deg, var(--highlight-orange), var(--highlight-orange)); background-size: 0% 100%; background-repeat: no-repeat; cursor: pointer; }
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 20px; width: 20px; border-radius: 50%; background: var(--highlight-orange); cursor: pointer; margin-top: -7px; box-shadow: 0 0 10px var(--highlight-orange); position: relative; z-index: 2; }
-        input[type=range]::-moz-range-track { width: 100%; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 3px; border: none; }
-        input[type=range]::-moz-range-progress { background-color: var(--highlight-orange); height: 6px; border-radius: 3px; }
-        input[type=range]::-moz-range-thumb { height: 20px; width: 20px; border: none; border-radius: 50%; background: var(--highlight-orange); cursor: pointer; box-shadow: 0 0 10px var(--highlight-orange); }
-
         .current-val-display { margin-top: 15px; font-size: 1.2rem; color: white; font-weight: bold; }
         .disclaimer-text { font-size: 0.7rem; color: #889; margin-top: 8px; text-align: center; font-style: italic; }
 
         .close-btn { position: absolute; top: 20px; right: 20px; background: rgba(0, 0, 0, 0.5); border: 1px solid var(--highlight-orange); color: var(--highlight-orange); padding: 10px 20px; cursor: pointer; border-radius: 5px; font-weight: bold; transition: all 0.2s; z-index: 100; pointer-events: auto; }
         .close-btn:hover { background: var(--highlight-orange); color: white; box-shadow: 0 0 15px var(--highlight-orange); }
         .error-message { text-align: center; color: #ff4d00; padding: 2rem; display: none; }
-
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <a href="index.html" class="nav-link">Home</a>
+        <a href="index.html" class="nav-link">
+            <img src="VitaForge_Logo.png" alt="VitaForge" class="nav-logo">
+            Home
+        </a>
         <a href="dashboard.html" class="nav-link active">Asset Dashboard</a>
         <a href="treasury.html" class="nav-link">Bitcoin Treasury</a>
     </nav>
 
     <header>
-        <h1>VitaForge Asset Tracker</h1>
+        <img src="VitaForge_Logo.png" alt="VitaForge Logo" class="header-logo">
         <p style="color: #889; margin-top: 0.5rem;">Interactive Tokenized Portfolio (Live Data)</p>
     </header>
 
     <div id="error-box" class="error-message">
-        Unable to load 'assets.md'.<br>Run on local server (Live Server or python -m http.server).
+        Unable to load 'assets.md'.<br>Ensure you are running on a local server (python -m http.server).
     </div>
 
     <div class="dashboard-container" id="grid"></div>
@@ -393,14 +286,7 @@
 
             <div id="modal-view-tokenomics" class="modal-view hidden">
                 <table class="token-table">
-                    <thead>
-                        <tr>
-                            <th>Release</th>
-                            <th>Entry Token Price</th>
-                            <th>Exit Token Price</th>
-                            <th>Return</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>Release</th><th>Entry Token Price</th><th>Exit Token Price</th><th>Return</th></tr></thead>
                     <tbody id="token-table-body"></tbody>
                 </table>
                 <div class="total-tokens-container">
@@ -408,392 +294,373 @@
                     <div class="total-tokens-value" id="total-tokens-display">0</div>
                 </div>
                 <div class="slider-container">
-                    <div class="slider-labels">
-                        <span id="slider-min-label">Min: $0</span>
-                        <span id="slider-max-label">Max: $0</span>
-                    </div>
+                    <div class="slider-labels"><span id="slider-min-label">Min: $0</span><span id="slider-max-label">Max: $0</span></div>
                     <input type="range" id="exit-slider" min="0" max="100" step="1000000">
                     <div class="current-val-display">Target Exit<sup>*</sup>: <span id="slider-val-display" style="color:var(--highlight-cyan);">$0</span></div>
                     <div class="disclaimer-text">*Total deal size less taxes, fees, and closing costs.</div>
                 </div>
             </div>
-
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const grid = document.getElementById('grid');
-            const overlay = document.getElementById('overlay');
-            const modalTitle = document.getElementById('modal-title');
-            const modalPercent = document.getElementById('modal-percent');
-            const modalFill = document.getElementById('modal-gauge-fill');
-            const milestonesLayer = document.getElementById('milestones-layer');
-            const connectorSvg = document.getElementById('connector-svg');
-            const flowContainer = document.getElementById('modal-flow-container');
-            const errorBox = document.getElementById('error-box');
-            
-            const bgViewTitle = document.getElementById('bg-view-title');
-            const bgViewBody = document.getElementById('bg-view-body');
+        // DOM Elements
+        const grid = document.getElementById('grid');
+        const overlay = document.getElementById('overlay');
+        const modalTitle = document.getElementById('modal-title');
+        const modalPercent = document.getElementById('modal-percent');
+        const modalFill = document.getElementById('modal-gauge-fill');
+        const milestonesLayer = document.getElementById('milestones-layer');
+        const connectorSvg = document.getElementById('connector-svg');
+        const flowContainer = document.getElementById('modal-flow-container');
+        const errorBox = document.getElementById('error-box');
+        
+        const bgViewTitle = document.getElementById('bg-view-title');
+        const bgViewBody = document.getElementById('bg-view-body');
 
-            const tableBody = document.getElementById('token-table-body');
-            const exitSlider = document.getElementById('exit-slider');
-            const sliderValDisplay = document.getElementById('slider-val-display');
-            const sliderMinLabel = document.getElementById('slider-min-label');
-            const sliderMaxLabel = document.getElementById('slider-max-label');
-            const totalTokensDisplay = document.getElementById('total-tokens-display');
+        const tableBody = document.getElementById('token-table-body');
+        const exitSlider = document.getElementById('exit-slider');
+        const sliderValDisplay = document.getElementById('slider-val-display');
+        const sliderMinLabel = document.getElementById('slider-min-label');
+        const sliderMaxLabel = document.getElementById('slider-max-label');
+        const totalTokensDisplay = document.getElementById('total-tokens-display');
 
-            let currentAsset = null;
+        let currentAsset = null;
 
-            async function loadAssets() {
-                try {
-                    const response = await fetch('assets.md');
-                    if (!response.ok) throw new Error("File not found");
-                    const text = await response.text();
-                    const assets = parseMarkdown(text);
-                    renderGrid(assets);
-                } catch (e) {
-                    console.error("Error loading assets:", e);
-                    errorBox.style.display = 'block';
-                }
+        async function loadAssets() {
+            try {
+                const response = await fetch('assets.md');
+                if (!response.ok) throw new Error("File not found");
+                const text = await response.text();
+                const assets = parseMarkdown(text);
+                renderGrid(assets);
+            } catch (e) {
+                console.error("Error loading assets:", e);
+                errorBox.style.display = 'block';
             }
+        }
 
-            function parseMarkdown(mdText) {
-                const assets = [];
-                const blocks = mdText.split(/^#\s+/gm);
-                blocks.forEach(block => {
-                    if (!block.trim()) return;
-                    const lines = block.split('\n');
-                    const id = lines[0].trim();
-                    const findValue = (prefix) => {
-                        const match = block.match(new RegExp(`${prefix}\\s*(.+)`, 'i'));
-                        return match ? match[1].trim() : '';
-                    };
-                    const name = findValue('Name:');
-                    const background = findValue('Background:');
-                    const percentStr = findValue('Current:');
-                    const percent = parseInt(percentStr) || 0;
-                    const totalTokensStr = findValue('Total Tokens:');
-                    const exitMinStr = findValue('Exit Target Min:');
-                    const exitMaxStr = findValue('Exit Target Max:');
-                    const parseNum = (s) => parseFloat(s.replace(/,/g, ''));
-                    const totalTokens = totalTokensStr ? parseNum(totalTokensStr) : 0;
-                    const exitMin = exitMinStr ? parseNum(exitMinStr) : 0;
-                    const exitMax = exitMaxStr ? parseNum(exitMaxStr) : 0;
-                    const milestones = [];
-                    const milestoneRegex = /-\s*(\d+)%:\s*(.+)/g;
-                    let m;
-                    while ((m = milestoneRegex.exec(block)) !== null) milestones.push({ at: parseInt(m[1]), text: m[2].trim() });
-                    const capitalInputs = [];
-                    const capitalOutputs = [];
-                    const inputRegex = /-\s*Input:\s*(?:\[(.*?)\])?\s*(.+?)\s*\$(\d+(?:\.\d+)?)M/g;
-                    const outputRegex = /-\s*Output:\s*(?:\[(.*?)\])?\s*(.+?)\s*(\d+(?:\.\d+)?)%/g;
-                    let inMatch;
-                    while ((inMatch = inputRegex.exec(block)) !== null) {
-                        capitalInputs.push({ type: inMatch[1] ? inMatch[1].trim() : 'Equity', label: inMatch[2].trim(), val: parseFloat(inMatch[3]) });
-                    }
-                    let outMatch;
-                    while ((outMatch = outputRegex.exec(block)) !== null) {
-                        capitalOutputs.push({ type: outMatch[1] ? outMatch[1].trim() : 'Equity', label: outMatch[2].trim(), val: parseFloat(outMatch[3]) });
-                    }
-                    if (id && name) assets.push({ 
-                        id, name, background, percent, milestones, capitalInputs, capitalOutputs,
-                        tokenData: { total: totalTokens, min: exitMin, max: exitMax }
-                    });
-                });
-                return assets;
-            }
-
-            function renderGrid(assets) {
-                grid.innerHTML = '';
-                assets.forEach((asset, index) => {
-                    const card = document.createElement('div');
-                    card.className = 'asset-card';
-                    const offset = 100 - asset.percent;
-                    card.innerHTML = `
-                        <svg class="gauge-svg" viewBox="0 0 100 100">
-                            <circle cx="50" cy="50" r="40" class="gauge-bg" />
-                            <circle cx="50" cy="50" r="40" class="gauge-fill" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" style="stroke-dashoffset: ${offset};" />
-                        </svg>
-                        <div class="asset-info">
-                            <div class="asset-name">${asset.id}</div>
-                            <div class="asset-percent">${asset.name}<br>${asset.percent}% Complete</div>
-                        </div>
-                    `;
-                    card.onclick = () => openModal(asset);
-                    grid.appendChild(card);
-                });
-            }
-
-            function openModal(asset) {
-                currentAsset = asset;
-                bgViewTitle.innerText = asset.name;
-                bgViewBody.innerText = asset.background || "No background information available.";
-                modalTitle.innerText = asset.id;
-                modalPercent.innerText = `${asset.percent}%`;
-                modalFill.style.transition = 'none';
-                modalFill.style.strokeDashoffset = 100;
-                const flowSVG = createCapitalFlowSVG(asset.capitalInputs || [], asset.capitalOutputs || []);
-                flowContainer.innerHTML = flowSVG;
-                setupTokenomicsView(asset);
-                switchModalView('background');
-                overlay.classList.add('active');
-                setTimeout(() => {
-                    modalFill.style.transition = 'stroke-dasharray 1.5s ease-out, stroke-dashoffset 1.5s ease-out';
-                    modalFill.style.strokeDashoffset = 100 - asset.percent;
-                }, 50);
-                drawMilestonesDynamic(asset.milestones, asset.percent);
-            }
-
-            function setupTokenomicsView(asset) {
-                const data = asset.tokenData;
-                exitSlider.min = data.min;
-                exitSlider.max = data.max;
-                exitSlider.value = data.min;
-                updateSliderBackground(exitSlider);
-                sliderMinLabel.innerText = `Min: $${formatMoney(data.min)}`;
-                sliderMaxLabel.innerText = `Max: $${formatMoney(data.max)}`;
-                updateSliderDisplay(data.min);
-                totalTokensDisplay.innerText = data.total.toLocaleString();
-                const types = new Set();
-                asset.capitalInputs.forEach(i => types.add(i.type));
-                const rows = [];
-                types.forEach(type => {
-                    if (type.toLowerCase().includes('equity')) return; 
-                    const inputSumMillions = asset.capitalInputs.filter(i => i.type === type).reduce((s, i) => s + i.val, 0);
-                    const inputSum = inputSumMillions * 1000000;
-                    const outputPercentSum = asset.capitalOutputs.filter(i => i.type === type).reduce((s, i) => s + i.val, 0);
-                    let entryPrice = 0;
-                    if(outputPercentSum > 0 && data.total > 0) entryPrice = inputSum / (data.total * (outputPercentSum / 100));
-                    rows.push({ type: type, entryPrice: entryPrice, outputPercent: outputPercentSum });
-                });
-                exitSlider.oninput = function() {
-                    const currentVal = parseFloat(this.value);
-                    updateSliderDisplay(currentVal);
-                    updateSliderBackground(this); 
-                    renderTokenTable(rows, data.total, currentVal);
+        function parseMarkdown(mdText) {
+            const assets = [];
+            const blocks = mdText.split(/^#\s+/gm);
+            blocks.forEach(block => {
+                if (!block.trim()) return;
+                const lines = block.split('\n');
+                const id = lines[0].trim();
+                const findValue = (prefix) => {
+                    const match = block.match(new RegExp(`${prefix}\\s*(.+)`, 'i'));
+                    return match ? match[1].trim() : '';
                 };
-                renderTokenTable(rows, data.total, data.min);
-            }
-
-            function updateSliderBackground(el) {
-                const val = (el.value - el.min) / (el.max - el.min) * 100;
-                el.style.backgroundSize = `${val}% 100%`;
-            }
-
-            function updateSliderDisplay(val) {
-                sliderValDisplay.innerText = `$${formatMoney(val)}`;
-            }
-
-            function renderTokenTable(rows, totalTokens, sliderVal) {
-                tableBody.innerHTML = '';
-                let uniformExitPrice = 0;
-                if(totalTokens > 0) uniformExitPrice = sliderVal / totalTokens;
-                rows.forEach(row => {
-                    let ret = 0;
-                    if (row.entryPrice > 0) ret = uniformExitPrice / row.entryPrice;
-                    const tr = document.createElement('tr');
-                    const entryStr = row.entryPrice < 0.01 ? row.entryPrice.toFixed(4) : row.entryPrice.toFixed(2);
-                    const exitStr = uniformExitPrice < 0.01 ? uniformExitPrice.toFixed(4) : uniformExitPrice.toFixed(2);
-                    const retStr = ret.toFixed(1) + 'X';
-                    const retClass = ret >= 1.0 ? 'val-positive' : 'val-neutral';
-                    tr.innerHTML = `<td>${row.type.replace('Tokens', '').trim()}</td><td>$${entryStr}</td><td>$${exitStr}</td><td class="${retClass}">${retStr}</td>`;
-                    tableBody.appendChild(tr);
+                const name = findValue('Name:');
+                const background = findValue('Background:');
+                const percentStr = findValue('Current:');
+                const percent = parseInt(percentStr) || 0;
+                const totalTokensStr = findValue('Total Tokens:');
+                const exitMinStr = findValue('Exit Target Min:');
+                const exitMaxStr = findValue('Exit Target Max:');
+                const parseNum = (s) => parseFloat(s.replace(/,/g, ''));
+                const totalTokens = totalTokensStr ? parseNum(totalTokensStr) : 0;
+                const exitMin = exitMinStr ? parseNum(exitMinStr) : 0;
+                const exitMax = exitMaxStr ? parseNum(exitMaxStr) : 0;
+                const milestones = [];
+                const milestoneRegex = /-\s*(\d+)%:\s*(.+)/g;
+                let m;
+                while ((m = milestoneRegex.exec(block)) !== null) milestones.push({ at: parseInt(m[1]), text: m[2].trim() });
+                const capitalInputs = [];
+                const capitalOutputs = [];
+                const inputRegex = /-\s*Input:\s*(?:\[(.*?)\])?\s*(.+?)\s*\$(\d+(?:\.\d+)?)M/g;
+                const outputRegex = /-\s*Output:\s*(?:\[(.*?)\])?\s*(.+?)\s*(\d+(?:\.\d+)?)%/g;
+                let inMatch;
+                while ((inMatch = inputRegex.exec(block)) !== null) {
+                    capitalInputs.push({ type: inMatch[1] ? inMatch[1].trim() : 'Equity', label: inMatch[2].trim(), val: parseFloat(inMatch[3]) });
+                }
+                let outMatch;
+                while ((outMatch = outputRegex.exec(block)) !== null) {
+                    capitalOutputs.push({ type: outMatch[1] ? outMatch[1].trim() : 'Equity', label: outMatch[2].trim(), val: parseFloat(outMatch[3]) });
+                }
+                if (id && name) assets.push({ 
+                    id, name, background, percent, milestones, capitalInputs, capitalOutputs,
+                    tokenData: { total: totalTokens, min: exitMin, max: exitMax }
                 });
-            }
+            });
+            return assets;
+        }
 
-            function formatMoney(num) {
-                if(num >= 1000000000) return (num/1000000000).toFixed(1) + 'B';
-                if(num >= 1000000) return (num/1000000).toFixed(1) + 'M';
-                return num.toLocaleString();
-            }
+        function renderGrid(assets) {
+            grid.innerHTML = '';
+            assets.forEach((asset, index) => {
+                const card = document.createElement('div');
+                card.className = 'asset-card';
+                const offset = 100 - asset.percent;
+                card.innerHTML = `
+                    <svg class="gauge-svg" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="40" class="gauge-bg" />
+                        <circle cx="50" cy="50" r="40" class="gauge-fill" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" style="stroke-dashoffset: ${offset};" />
+                    </svg>
+                    <div class="asset-info">
+                        <div class="asset-name">${asset.id}</div>
+                        <div class="asset-percent">${asset.name}<br>${asset.percent}% Complete</div>
+                    </div>
+                `;
+                card.onclick = () => openModal(asset);
+                grid.appendChild(card);
+            });
+        }
 
-            window.switchModalView = function(view) {
-                const btnBg = document.getElementById('btn-background');
-                const btnProg = document.getElementById('btn-progress');
-                const btnCap = document.getElementById('btn-capital');
-                const btnTok = document.getElementById('btn-tokenomics');
-                const viewBg = document.getElementById('modal-view-background');
-                const viewProg = document.getElementById('modal-view-progress');
-                const viewCap = document.getElementById('modal-view-capital');
-                const viewTok = document.getElementById('modal-view-tokenomics');
+        function openModal(asset) {
+            currentAsset = asset;
+            bgViewTitle.innerText = asset.name;
+            bgViewBody.innerText = asset.background || "No background information available.";
+            modalTitle.innerText = asset.id;
+            modalPercent.innerText = `${asset.percent}%`;
+            modalFill.style.transition = 'none';
+            modalFill.style.strokeDashoffset = 100;
+            const flowSVG = createCapitalFlowSVG(asset.capitalInputs || [], asset.capitalOutputs || []);
+            flowContainer.innerHTML = flowSVG;
+            setupTokenomicsView(asset);
+            switchModalView('background');
+            overlay.classList.add('active');
+            setTimeout(() => {
+                modalFill.style.transition = 'stroke-dasharray 1.5s ease-out, stroke-dashoffset 1.5s ease-out';
+                modalFill.style.strokeDashoffset = 100 - asset.percent;
+            }, 50);
+            drawMilestonesDynamic(asset.milestones, asset.percent);
+        }
 
-                [viewBg, viewProg, viewCap, viewTok].forEach(v => v.classList.add('hidden'));
-                [btnBg, btnProg, btnCap, btnTok].forEach(b => {
-                    b.classList.remove('active');
-                    b.classList.remove('active-orange');
-                    b.classList.remove('active-green');
-                });
+        function setupTokenomicsView(asset) {
+            const data = asset.tokenData;
+            exitSlider.min = data.min;
+            exitSlider.max = data.max;
+            exitSlider.value = data.min;
+            updateSliderBackground(exitSlider);
+            sliderMinLabel.innerText = `Min: $${formatMoney(data.min)}`;
+            sliderMaxLabel.innerText = `Max: $${formatMoney(data.max)}`;
+            updateSliderDisplay(data.min);
+            totalTokensDisplay.innerText = data.total.toLocaleString();
+            const types = new Set();
+            asset.capitalInputs.forEach(i => types.add(i.type));
+            const rows = [];
+            types.forEach(type => {
+                if (type.toLowerCase().includes('equity')) return; 
+                const inputSumMillions = asset.capitalInputs.filter(i => i.type === type).reduce((s, i) => s + i.val, 0);
+                const inputSum = inputSumMillions * 1000000;
+                const outputPercentSum = asset.capitalOutputs.filter(i => i.type === type).reduce((s, i) => s + i.val, 0);
+                let entryPrice = 0;
+                if(outputPercentSum > 0 && data.total > 0) entryPrice = inputSum / (data.total * (outputPercentSum / 100));
+                rows.push({ type: type, entryPrice: entryPrice, outputPercent: outputPercentSum });
+            });
+            exitSlider.oninput = function() {
+                const currentVal = parseFloat(this.value);
+                updateSliderDisplay(currentVal);
+                updateSliderBackground(this); 
+                renderTokenTable(rows, data.total, currentVal);
+            };
+            renderTokenTable(rows, data.total, data.min);
+        }
 
-                if (view === 'background') {
-                    viewBg.classList.remove('hidden');
-                    btnBg.classList.add('active');
-                } else if (view === 'progress') {
-                    viewProg.classList.remove('hidden');
-                    btnProg.classList.add('active');
-                } else if (view === 'capital') {
-                    viewCap.classList.remove('hidden');
-                    btnCap.classList.add('active-orange');
-                    if(currentAsset) {
-                         document.querySelectorAll('.flow-path-in, .flow-path-out').forEach(el => {
-                            el.classList.remove('animate');
-                            el.style.strokeDashoffset = 2000;
-                         });
-                         setTimeout(() => {
-                             runFlowAnimation(currentAsset.capitalInputs || [], currentAsset.capitalOutputs || []);
-                         }, 50);
-                    }
-                } else if (view === 'tokenomics') {
-                    viewTok.classList.remove('hidden');
-                    btnTok.classList.add('active-green');
+        function updateSliderBackground(el) {
+            const val = (el.value - el.min) / (el.max - el.min) * 100;
+            el.style.backgroundSize = `${val}% 100%`;
+        }
+
+        function updateSliderDisplay(val) {
+            sliderValDisplay.innerText = `$${formatMoney(val)}`;
+        }
+
+        function renderTokenTable(rows, totalTokens, sliderVal) {
+            tableBody.innerHTML = '';
+            let uniformExitPrice = 0;
+            if(totalTokens > 0) uniformExitPrice = sliderVal / totalTokens;
+            rows.forEach(row => {
+                let ret = 0;
+                if (row.entryPrice > 0) ret = uniformExitPrice / row.entryPrice;
+                const tr = document.createElement('tr');
+                const entryStr = row.entryPrice < 0.01 ? row.entryPrice.toFixed(4) : row.entryPrice.toFixed(2);
+                const exitStr = uniformExitPrice < 0.01 ? uniformExitPrice.toFixed(4) : uniformExitPrice.toFixed(2);
+                const retStr = ret.toFixed(1) + 'X';
+                const retClass = ret >= 1.0 ? 'val-positive' : 'val-neutral';
+                tr.innerHTML = `<td>${row.type.replace('Tokens', '').trim()}</td><td>$${entryStr}</td><td>$${exitStr}</td><td class="${retClass}">${retStr}</td>`;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        function formatMoney(num) {
+            if(num >= 1000000000) return (num/1000000000).toFixed(1) + 'B';
+            if(num >= 1000000) return (num/1000000).toFixed(1) + 'M';
+            return num.toLocaleString();
+        }
+
+        window.switchModalView = function(view) {
+            const btnBg = document.getElementById('btn-background');
+            const btnProg = document.getElementById('btn-progress');
+            const btnCap = document.getElementById('btn-capital');
+            const btnTok = document.getElementById('btn-tokenomics');
+            const viewBg = document.getElementById('modal-view-background');
+            const viewProg = document.getElementById('modal-view-progress');
+            const viewCap = document.getElementById('modal-view-capital');
+            const viewTok = document.getElementById('modal-view-tokenomics');
+
+            [viewBg, viewProg, viewCap, viewTok].forEach(v => v.classList.add('hidden'));
+            [btnBg, btnProg, btnCap, btnTok].forEach(b => {
+                b.classList.remove('active'); b.classList.remove('active-orange'); b.classList.remove('active-green');
+            });
+
+            if (view === 'background') { viewBg.classList.remove('hidden'); btnBg.classList.add('active'); }
+            else if (view === 'progress') { viewProg.classList.remove('hidden'); btnProg.classList.add('active'); }
+            else if (view === 'capital') {
+                viewCap.classList.remove('hidden'); btnCap.classList.add('active-orange');
+                if(currentAsset) {
+                        document.querySelectorAll('.flow-path-in, .flow-path-out').forEach(el => { el.classList.remove('animate'); el.style.strokeDashoffset = 2000; });
+                        setTimeout(() => { runFlowAnimation(currentAsset.capitalInputs || [], currentAsset.capitalOutputs || []); }, 50);
                 }
             }
+            else if (view === 'tokenomics') { viewTok.classList.remove('hidden'); btnTok.classList.add('active-green'); }
+        }
 
-            async function runFlowAnimation(inputs, outputs) {
-                const typeSet = new Set();
-                inputs.forEach(i => typeSet.add(i.type));
-                outputs.forEach(i => typeSet.add(i.type));
-                let orderedTypes = Array.from(typeSet);
-                orderedTypes = orderedTypes.filter(t => !t.toLowerCase().includes('equity'));
-                orderedTypes.push('Equity'); 
-                for (const type of orderedTypes) {
-                    const inPaths = document.querySelectorAll(`.flow-path-in[data-type="${type}"]`);
-                    if(inPaths.length > 0) {
-                        inPaths.forEach(el => { el.classList.add('animate'); el.style.strokeDashoffset = 0; });
-                        await new Promise(r => setTimeout(r, 475)); 
-                    }
-                    const outPaths = document.querySelectorAll(`.flow-path-out[data-type="${type}"]`);
-                    if(outPaths.length > 0) {
-                        outPaths.forEach(el => { el.classList.add('animate'); el.style.strokeDashoffset = 0; });
-                        await new Promise(r => setTimeout(r, 750));
-                    }
+        async function runFlowAnimation(inputs, outputs) {
+            const typeSet = new Set();
+            inputs.forEach(i => typeSet.add(i.type));
+            outputs.forEach(i => typeSet.add(i.type));
+            let orderedTypes = Array.from(typeSet).filter(t => !t.toLowerCase().includes('equity'));
+            orderedTypes.push('Equity'); 
+            for (const type of orderedTypes) {
+                const inPaths = document.querySelectorAll(`.flow-path-in[data-type="${type}"]`);
+                if(inPaths.length > 0) {
+                    inPaths.forEach(el => { el.classList.add('animate'); el.style.strokeDashoffset = 0; });
+                    await new Promise(r => setTimeout(r, 475)); 
+                }
+                const outPaths = document.querySelectorAll(`.flow-path-out[data-type="${type}"]`);
+                if(outPaths.length > 0) {
+                    outPaths.forEach(el => { el.classList.add('animate'); el.style.strokeDashoffset = 0; });
+                    await new Promise(r => setTimeout(r, 750));
                 }
             }
+        }
 
-            function getTextWidth(text, font) {
-                const canvas = document.createElement("canvas");
-                const context = canvas.getContext("2d");
-                context.font = font;
-                const metrics = context.measureText(text);
-                return metrics.width;
-            }
+        function getTextWidth(text, font) {
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+            context.font = font;
+            return context.measureText(text).width;
+        }
 
-            function getOrderColor(index, total) {
-                if (total <= 1) return '#ff4d00';
-                const t = index / (total - 1); 
-                const r = Math.round(255 + (0 - 255) * t);
-                const g = Math.round(77 + (255 - 77) * t);
-                const b = Math.round(0 + (0 - 0) * t);
-                return `rgb(${r}, ${g}, ${b})`;
-            }
+        function getOrderColor(index, total) {
+            if (total <= 1) return '#ff4d00';
+            const t = index / (total - 1); 
+            const r = Math.round(255 + (0 - 255) * t);
+            const g = Math.round(77 + (255 - 77) * t);
+            const b = Math.round(0 + (0 - 0) * t);
+            return `rgb(${r}, ${g}, ${b})`;
+        }
 
-            function createCapitalFlowSVG(inputs, outputs) {
-                const w = 800; const h = 500; const midX = w / 2;
-                const poolWidth = 220; const poolHeight = 80; const poolY = (h - poolHeight) / 2;
-                const totalCap = inputs.reduce((sum, item) => sum + item.val, 0);
-                const typeSet = new Set();
-                inputs.forEach(i => typeSet.add(i.type));
-                outputs.forEach(i => typeSet.add(i.type));
-                let orderedTypes = Array.from(typeSet);
-                const colorMap = {};
-                orderedTypes.forEach((type, index) => {
-                    colorMap[type] = getOrderColor(index, orderedTypes.length);
+        function createCapitalFlowSVG(inputs, outputs) {
+            const w = 800; const h = 500; const midX = w / 2;
+            const poolWidth = 220; const poolHeight = 80; const poolY = (h - poolHeight) / 2;
+            const totalCap = inputs.reduce((sum, item) => sum + item.val, 0);
+            const typeSet = new Set();
+            inputs.forEach(i => typeSet.add(i.type));
+            outputs.forEach(i => typeSet.add(i.type));
+            let orderedTypes = Array.from(typeSet);
+            const colorMap = {};
+            orderedTypes.forEach((type, index) => { colorMap[type] = getOrderColor(index, orderedTypes.length); });
+            const maxLineThickness = 70; const minLineThickness = 3; const boxH = 50;
+            const textFont = "bold 12px sans-serif"; const valFont = "bold 18px sans-serif"; const padding = 20;
+            let svgContent = '';
+            const inStep = h / (inputs.length + 1);
+            inputs.forEach((item, i) => {
+                const y = (i + 1) * inStep;
+                let color = colorMap[item.type];
+                let displayLabel = item.label;
+                if(item.type.toLowerCase().includes('token') && item.type.toLowerCase() !== 'token') { displayLabel = `${item.type.replace('Token ', '')}: ${item.label}`; }
+                const labelW = getTextWidth(displayLabel, textFont);
+                const valW = getTextWidth(`$${item.val}M`, valFont);
+                const boxW = Math.max(labelW, valW) + padding;
+                const boxX = 20; const lineStartX = boxX + boxW;
+                let thickness = (item.val / totalCap) * maxLineThickness;
+                if(thickness < minLineThickness) thickness = minLineThickness;
+                const poolLeftY = poolY + (poolHeight * ((i+1)/(inputs.length+1))); 
+                const path = `M ${lineStartX} ${y} C ${lineStartX + 100} ${y}, ${midX - 10} ${poolLeftY}, ${midX} ${poolLeftY}`;
+                svgContent += `<path d="${path}" class="flow-path-in" data-type="${item.type}" fill="none" stroke="${color}" stroke-width="${thickness}" />`;
+                svgContent += `<rect x="${boxX}" y="${y - boxH/2}" width="${boxW}" height="${boxH}" rx="6" fill="rgba(0,0,0,0.6)" stroke="${color}" stroke-width="1" />`;
+                svgContent += `<text x="${boxX + boxW/2}" y="${y - 6}" class="flow-text" style="font:${textFont}" text-anchor="middle">${displayLabel}</text>`;
+                svgContent += `<text x="${boxX + boxW/2}" y="${y + 12}" class="flow-val" style="font:${valFont}" text-anchor="middle">$${item.val}M</text>`;
+            });
+            const outStep = h / (outputs.length + 1);
+            outputs.forEach((item, i) => {
+                const y = (i + 1) * outStep;
+                let color = colorMap[item.type];
+                const labelW = getTextWidth(item.label, textFont);
+                const valW = getTextWidth(`${item.val}%`, valFont);
+                const boxW = Math.max(labelW, valW) + padding;
+                const boxX = w - 20 - boxW; const lineEndX = boxX;
+                const totalEquity = outputs.reduce((sum, item) => sum + item.val, 0); 
+                let thickness = (item.val / totalEquity) * maxLineThickness;
+                if(thickness < minLineThickness) thickness = minLineThickness;
+                const poolRightY = poolY + (poolHeight * ((i+1)/(outputs.length+1)));
+                const path = `M ${midX} ${poolRightY} C ${midX + 10} ${poolRightY}, ${lineEndX - 100} ${y}, ${lineEndX} ${y}`;
+                svgContent += `<path d="${path}" class="flow-path-out" data-type="${item.type}" fill="none" stroke="${color}" stroke-width="${thickness}" />`;
+                svgContent += `<rect x="${boxX}" y="${y - boxH/2}" width="${boxW}" height="${boxH}" rx="6" fill="rgba(0,0,0,0.6)" stroke="${color}" stroke-width="1" />`;
+                svgContent += `<text x="${boxX + boxW/2}" y="${y - 6}" class="flow-text" style="font:${textFont}" text-anchor="middle">${item.label}</text>`;
+                svgContent += `<text x="${boxX + boxW/2}" y="${y + 12}" class="flow-val" style="font:${valFont}" text-anchor="middle">${item.val}%</text>`;
+            });
+            svgContent += `<rect x="${midX - poolWidth/2}" y="${poolY}" width="${poolWidth}" height="${poolHeight}" rx="15" class="flow-center-box" />`;
+            svgContent += `<text x="${midX}" y="${poolY + 30}" class="flow-text" text-anchor="middle" font-size="16px">TOTAL CAPITAL RAISED</text>`;
+            svgContent += `<text x="${midX}" y="${poolY + 55}" class="flow-val" text-anchor="middle" fill="#00f0ff" font-size="20px" font-weight="bold">$${totalCap}M</text>`;
+            const defs = `<defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#00f0ff;stop-opacity:1" /><stop offset="100%" style="stop-color:#ff4d00;stop-opacity:1" /></linearGradient></defs>`;
+            return `<svg class="flow-svg" viewBox="0 0 ${w} ${h}">${defs}${svgContent}</svg>`;
+        }
+
+        function drawMilestonesDynamic(milestones, currentPercent) {
+            milestonesLayer.innerHTML = '';
+            connectorSvg.innerHTML = '';
+            const radius = 250; const centerX = 450; const centerY = 325;
+            const createdNodes = [];
+            milestones.forEach((milestone) => {
+                const isFuture = milestone.at > currentPercent;
+                const degrees = (milestone.at / 100) * 360 - 90;
+                const angle = degrees * (Math.PI / 180);
+                const targetX = centerX + radius * Math.cos(angle);
+                const targetY = centerY + radius * Math.sin(angle);
+                const node = document.createElement('div');
+                node.className = 'milestone-node';
+                if (isFuture) node.classList.add('future');
+                node.innerText = `${milestone.at}%: ${milestone.text}`;
+                node.style.left = `${targetX}px`;
+                node.style.top = `${targetY}px`;
+                milestonesLayer.appendChild(node);
+                createdNodes.push({ node, targetX, targetY, isFuture });
+            });
+            setTimeout(() => {
+                createdNodes.forEach((item) => {
+                     let rect = item.node.getBoundingClientRect();
+                     if (rect.width === 0) rect = { width: 100, height: 50 };
+                     const halfDiagonal = Math.sqrt(Math.pow(rect.width/2, 2) + Math.pow(rect.height/2, 2));
+                     const buffer = halfDiagonal + 15; 
+                     const dx = item.targetX - centerX;
+                     const dy = item.targetY - centerY;
+                     const totalDistance = Math.sqrt(dx*dx + dy*dy);
+                     const startRatio = 110 / totalDistance;
+                     const endRatio = (totalDistance - buffer) / totalDistance;
+                     const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                     line.setAttribute('x1', centerX + dx * startRatio);
+                     line.setAttribute('y1', centerY + dy * startRatio);
+                     line.setAttribute('x2', centerX + dx * endRatio);
+                     line.setAttribute('y2', centerY + dy * endRatio);
+                     line.classList.add('connector-line');
+                     if (item.isFuture) line.classList.add('future');
+                     connectorSvg.appendChild(line);
                 });
-                const maxLineThickness = 70; const minLineThickness = 3; const boxH = 50;
-                const textFont = "bold 12px sans-serif"; const valFont = "bold 18px sans-serif"; const padding = 20;
-                let svgContent = '';
-                const inStep = h / (inputs.length + 1);
-                inputs.forEach((item, i) => {
-                    const y = (i + 1) * inStep;
-                    let color = colorMap[item.type];
-                    let displayLabel = item.label;
-                    if(item.type.toLowerCase().includes('token') && item.type.toLowerCase() !== 'token') {
-                        displayLabel = `${item.type.replace('Token ', '')}: ${item.label}`;
-                    }
-                    const labelW = getTextWidth(displayLabel, textFont);
-                    const valW = getTextWidth(`$${item.val}M`, valFont);
-                    const boxW = Math.max(labelW, valW) + padding;
-                    const boxX = 20; const lineStartX = boxX + boxW;
-                    let thickness = (item.val / totalCap) * maxLineThickness;
-                    if(thickness < minLineThickness) thickness = minLineThickness;
-                    const poolLeftY = poolY + (poolHeight * ((i+1)/(inputs.length+1))); 
-                    const path = `M ${lineStartX} ${y} C ${lineStartX + 100} ${y}, ${midX - 10} ${poolLeftY}, ${midX} ${poolLeftY}`;
-                    svgContent += `<path d="${path}" class="flow-path-in" data-type="${item.type}" fill="none" stroke="${color}" stroke-width="${thickness}" />`;
-                    svgContent += `<rect x="${boxX}" y="${y - boxH/2}" width="${boxW}" height="${boxH}" rx="6" fill="rgba(0,0,0,0.6)" stroke="${color}" stroke-width="1" />`;
-                    svgContent += `<text x="${boxX + boxW/2}" y="${y - 6}" class="flow-text" style="font:${textFont}" text-anchor="middle">${displayLabel}</text>`;
-                    svgContent += `<text x="${boxX + boxW/2}" y="${y + 12}" class="flow-val" style="font:${valFont}" text-anchor="middle">$${item.val}M</text>`;
-                });
-                const outStep = h / (outputs.length + 1);
-                outputs.forEach((item, i) => {
-                    const y = (i + 1) * outStep;
-                    let color = colorMap[item.type];
-                    const labelW = getTextWidth(item.label, textFont);
-                    const valW = getTextWidth(`${item.val}%`, valFont);
-                    const boxW = Math.max(labelW, valW) + padding;
-                    const boxX = w - 20 - boxW; const lineEndX = boxX;
-                    const totalEquity = outputs.reduce((sum, item) => sum + item.val, 0); 
-                    let thickness = (item.val / totalEquity) * maxLineThickness;
-                    if(thickness < minLineThickness) thickness = minLineThickness;
-                    const poolRightY = poolY + (poolHeight * ((i+1)/(outputs.length+1)));
-                    const path = `M ${midX} ${poolRightY} C ${midX + 10} ${poolRightY}, ${lineEndX - 100} ${y}, ${lineEndX} ${y}`;
-                    svgContent += `<path d="${path}" class="flow-path-out" data-type="${item.type}" fill="none" stroke="${color}" stroke-width="${thickness}" />`;
-                    svgContent += `<rect x="${boxX}" y="${y - boxH/2}" width="${boxW}" height="${boxH}" rx="6" fill="rgba(0,0,0,0.6)" stroke="${color}" stroke-width="1" />`;
-                    svgContent += `<text x="${boxX + boxW/2}" y="${y - 6}" class="flow-text" style="font:${textFont}" text-anchor="middle">${item.label}</text>`;
-                    svgContent += `<text x="${boxX + boxW/2}" y="${y + 12}" class="flow-val" style="font:${valFont}" text-anchor="middle">${item.val}%</text>`;
-                });
-                svgContent += `<rect x="${midX - poolWidth/2}" y="${poolY}" width="${poolWidth}" height="${poolHeight}" rx="15" class="flow-center-box" />`;
-                svgContent += `<text x="${midX}" y="${poolY + 30}" class="flow-text" text-anchor="middle" font-size="16px">TOTAL CAPITAL RAISED</text>`;
-                svgContent += `<text x="${midX}" y="${poolY + 55}" class="flow-val" text-anchor="middle" fill="#00f0ff" font-size="20px" font-weight="bold">$${totalCap}M</text>`;
-                const defs = `<defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#00f0ff;stop-opacity:1" /><stop offset="100%" style="stop-color:#ff4d00;stop-opacity:1" /></linearGradient></defs>`;
-                return `<svg class="flow-svg" viewBox="0 0 ${w} ${h}">${defs}${svgContent}</svg>`;
-            }
+            }, 10);
+        }
 
-            function drawMilestonesDynamic(milestones, currentPercent) {
-                milestonesLayer.innerHTML = '';
-                connectorSvg.innerHTML = '';
-                const radius = 250; const centerX = 450; const centerY = 325;
-                const createdNodes = [];
-                milestones.forEach((milestone) => {
-                    const isFuture = milestone.at > currentPercent;
-                    const degrees = (milestone.at / 100) * 360 - 90;
-                    const angle = degrees * (Math.PI / 180);
-                    const targetX = centerX + radius * Math.cos(angle);
-                    const targetY = centerY + radius * Math.sin(angle);
-                    const node = document.createElement('div');
-                    node.className = 'milestone-node';
-                    if (isFuture) node.classList.add('future');
-                    node.innerText = `${milestone.at}%: ${milestone.text}`;
-                    node.style.left = `${targetX}px`;
-                    node.style.top = `${targetY}px`;
-                    milestonesLayer.appendChild(node);
-                    createdNodes.push({ node, targetX, targetY, isFuture });
-                });
-                setTimeout(() => {
-                    createdNodes.forEach((item) => {
-                         let rect = item.node.getBoundingClientRect();
-                         if (rect.width === 0) rect = { width: 100, height: 50 };
-                         const halfDiagonal = Math.sqrt(Math.pow(rect.width/2, 2) + Math.pow(rect.height/2, 2));
-                         const buffer = halfDiagonal + 15; 
-                         const dx = item.targetX - centerX;
-                         const dy = item.targetY - centerY;
-                         const totalDistance = Math.sqrt(dx*dx + dy*dy);
-                         const startRatio = 110 / totalDistance;
-                         const endRatio = (totalDistance - buffer) / totalDistance;
-                         const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                         line.setAttribute('x1', centerX + dx * startRatio);
-                         line.setAttribute('y1', centerY + dy * startRatio);
-                         line.setAttribute('x2', centerX + dx * endRatio);
-                         line.setAttribute('y2', centerY + dy * endRatio);
-                         line.classList.add('connector-line');
-                         if (item.isFuture) line.classList.add('future');
-                         connectorSvg.appendChild(line);
-                    });
-                }, 10);
-            }
+        window.closeModal = function() { overlay.classList.remove('active'); };
 
-            window.closeModal = function() { overlay.classList.remove('active'); };
+        // AUTH CHECK LOGIC
+        if (sessionStorage.getItem("vf_access_granted")) {
             loadAssets();
-        });
+        } else {
+            window.addEventListener('vf-app-start', loadAssets);
+        }
     </script>
 </body>
 </html>
