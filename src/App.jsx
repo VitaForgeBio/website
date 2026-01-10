@@ -11,7 +11,7 @@ import Treasury from './pages/Treasury';
 
 function App() {
   return (
-    <HashRouter basename="/website">
+    <HashRouter>
       <AuthGuard>
         <Navbar />
         <Routes>
