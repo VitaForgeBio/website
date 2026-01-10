@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../styles/treasury.css';
+import VitaForge_Logo from '../assets/VitaForge_Logo.png';
 
 export default function Treasury() {
     const canvasRef = useRef(null);
@@ -697,7 +698,7 @@ export default function Treasury() {
 
     return (
         <div className="container">
-            <img src="/src/assets/VitaForge_Logo.png" alt="VitaForge Logo" className="header-logo" />
+            <img src={VitaForge_Logo} alt="VitaForge Logo" className="header-logo" />
             <p className="strategy-text">
                 We monetize volatility. Assets (Left) drive milestones. Milestones drive equity volatility (Center).
                 We harvest this volatility via Convertible Notes when implied volatility spikes or Bitcoin surges,

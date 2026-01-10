@@ -6,7 +6,7 @@ export default function useAssets() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch('/data/assets.json')
+        fetch(import.meta.env.BASE_URL + 'data/assets.json')
             .then(res => {
                 if (!res.ok) throw new Error('Failed to load assets');
                 return res.json();
