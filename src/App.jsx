@@ -11,7 +11,7 @@ import Treasury from './pages/Treasury';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/website">
       <AuthGuard>
         <Navbar />
         <Routes>
