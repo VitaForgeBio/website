@@ -141,9 +141,20 @@ export default function Treasury() {
         canvas.height = height;
 
         // Alignment Constants
-        const equityStartX = width * 0.275;
-        const equityEndX = width * 0.65;
+        const equityStartX = width * 0.18; // Wide enough to reach assets (was 0.275)
+        const equityEndX = width * 0.70;   // Slightly wider (was 0.65)
         const equityCenterX = (equityStartX + equityEndX) / 2;
+        const rectH = 320; // Significantly larger (was 200)
+        const gap = 25;    // Fixed 25px gap
+        // Approx box height (calculated in drawBoxes, roughly 34px). Using 34 for static calcs.
+        const boxHeightApprox = 34;
+
+        const centerY = height / 2;
+        const equityBoxTop = centerY - (rectH / 2);
+        const equityBoxBottom = centerY + (rectH / 2);
+
+        const noteY = equityBoxTop - gap - (boxHeightApprox / 2);
+        const exitY = equityBoxBottom + gap + (boxHeightApprox / 2);
 
         // Classes
         class MilestoneParticle {
@@ -225,20 +236,6 @@ export default function Treasury() {
             } else if (type === 'exit') activePulseColor = '#ffffff';
 
             let msg = "";
-            let leverageExceeded = false;
-
-            if (type !== 'exit' && amountUSD > 0) {
-                const potentialDebt = outstandingDebt + amountUSD;
-                const currentTreasuryVal = (btcBalance * btcPrice) / 1000000;
-                if (currentTreasuryVal > 0) {
-                    const projectedLev = potentialDebt / currentTreasuryVal;
-                    if (projectedLev > 0.20) {
-                        amountUSD = 0;
-                        leverageExceeded = true;
-                    }
-                }
-            }
-
             let btcToEmit = 0;
             let msgColor = "#ffffff";
 
@@ -258,6 +255,19 @@ export default function Treasury() {
                     prefix = "BTC: VOL > 60";
                 } else if (type === 'milestone') {
                     prefix = "Milestone Reached";
+                }
+
+                let leverageExceeded = false;
+                if (type !== 'exit' && amountUSD > 0) {
+                    const potentialDebt = outstandingDebt + amountUSD;
+                    const currentTreasuryVal = (btcBalance * btcPrice) / 1000000;
+                    if (currentTreasuryVal > 0) {
+                        const projectedLev = potentialDebt / currentTreasuryVal;
+                        if (projectedLev > 0.20) {
+                            amountUSD = 0;
+                            leverageExceeded = true;
+                        }
+                    }
                 }
 
                 if (leverageExceeded) {
@@ -302,9 +312,16 @@ export default function Treasury() {
             if (type === 'exit' || btcToEmit > 0) {
                 const isExit = (type === 'exit');
                 const particleCount = isExit ? 25 : 8;
+                // Origin Logic Updated for New Layout
+                // Exits spawn from Exit Box (bottom), Notes spawn from Note Box (top) or center? 
+                // Original Logic: "Note Issued" -> bitcoins emitted (converted to BTC). 
+                // Wait, "Note Issued" means we GET cash (USD) which buys BTC. 
+                // So BTC starts from where? The Note Box? Or Center?
+                // Old logic: isExit ? (height/2 + offset) : (height/2 - offset).
+                // New logic: isExit ? exitY : noteY.
+
                 const originX = equityCenterX;
-                const offset = height * 0.3;
-                const originY = isExit ? (height / 2 + offset) : (height / 2 - offset);
+                const originY = isExit ? exitY : noteY;
 
                 for (let i = 0; i < particleCount; i++) {
                     setTimeout(() => bitcoins.push(new BitcoinParticle(originX, originY, isExit)), i * 50);
@@ -495,17 +512,14 @@ export default function Treasury() {
         // Draw Helpers
         function drawTicker() {
             // Box dimensions (must match drawEquityLine)
-            const centerY = height / 2;
-            const startX = equityStartX;
-            const endX = equityEndX;
-            const rectH = 200;
-            const topY = centerY - rectH / 2;
-            const bottomY = centerY + rectH / 2 - 15; // Start spawning just inside or below
+            // rectH, equityStartX, equityEndX are already updated in global scope of useEffect
+            const topY = equityBoxTop;
+            const bottomY = equityBoxBottom - 15; // Start spawning just inside or below
 
             ctx.save();
             // Clip to box area to handle scrolling text masking
             ctx.beginPath();
-            ctx.roundRect(startX - 10, topY, (endX - startX) + 20, rectH, 15);
+            ctx.roundRect(equityStartX - 10, topY, (equityEndX - equityStartX) + 20, rectH, 15);
             ctx.clip();
 
             // Spawn next message if gap allows
@@ -562,13 +576,14 @@ export default function Treasury() {
         }
 
         function drawAssetsAndExits() {
-            const offset = height * 0.3;
-            const exitX = equityCenterX; const exitY = height / 2 + offset;
+            // Using updated exitY
             assetInstances.forEach(inst => {
                 if (inst.state === 'hidden' || inst.state === 'gone') return;
                 let drawX = inst.x; let drawY = inst.y;
                 if (inst.state === 'exiting') {
-                    const dx = exitX - inst.x; const dy = exitY - inst.y; const dist = Math.sqrt(dx * dx + dy * dy);
+                    // Target updated exitY
+                    const dx = equityCenterX - inst.x; const dy = exitY - inst.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
                     if (dist < 5) {
                         triggerAction('exit', inst.def.exitAmount, { asset: inst.def.name });
                         const exitBTC = Math.floor((inst.def.exitAmount * 1000000) / btcPrice);
@@ -585,27 +600,20 @@ export default function Treasury() {
         }
 
         function drawEquityLine() {
-            const centerY = height / 2;
-
-            // Trim 25% from left (was 0.15 start, now 0.275 start)
-            const startX = equityStartX;
-            const endX = equityEndX; // Total range is roughly 37.5% of width now
-            const rectH = 200;
-
             // Background Rectangle (Black with rounded corners)
             ctx.fillStyle = "#000000";
             ctx.beginPath();
-            ctx.roundRect(startX - 10, centerY - rectH / 2, (endX - startX) + 20, rectH, 15);
+            ctx.roundRect(equityStartX - 10, equityBoxTop, (equityEndX - equityStartX) + 20, rectH, 15);
             ctx.fill();
 
             // Line Logic
             ctx.beginPath();
-            ctx.moveTo(startX, centerY);
+            ctx.moveTo(equityStartX, centerY);
             equityVolatility *= 0.96;
             const amplitude = 10 + (equityVolatility * 100);
             const lineColor = equityVolatility > 0.1 ? activePulseColor : 'rgba(0, 240, 255, 0.3)';
 
-            for (let x = startX; x <= endX; x += 5) {
+            for (let x = equityStartX; x <= equityEndX; x += 5) {
                 // Changed flow to Left to Right -> (x - frameCount)
                 const y = centerY + Math.sin((x - frameCount) * 0.05) * amplitude * Math.sin(x * 0.02);
                 ctx.lineTo(x, y);
@@ -617,13 +625,13 @@ export default function Treasury() {
             ctx.font = "bold 12px sans-serif";
             ctx.textAlign = "left";
             ctx.textBaseline = "top";
-            // Padding: 10px inside the rect (startX + 5, top is centerY - 100) -> -90
-            ctx.fillText("EQUITY VOLATILITY", startX, centerY - 90);
+            // Place title inside top left of the new larger rect
+            ctx.fillText("EQUITY VOLATILITY", equityStartX, equityBoxTop + 10);
         }
 
         function drawBoxes() {
-            const offset = height * 0.3;
-            const cx = equityCenterX; const noteY = height / 2 - offset; const exitY = height / 2 + offset;
+            const cx = equityCenterX;
+            // noteY and exitY are now defined in scope
             noteBoxIntensity *= 0.96;
             const glow = noteBoxIntensity > 0.1 ? 1 : 0.2;
             const boxColor = noteBoxIntensity > 0.1 ? activePulseColor : '#ff4d00';
@@ -635,11 +643,6 @@ export default function Treasury() {
             const noteMetrics = ctx.measureText(noteText);
             const exitMetrics = ctx.measureText(exitText);
             const padding = 5;
-            // Approx height for 24px font + padding. ascent + descent is roughly font size. 
-            // Using a fixed height that fits 24px comfortably + 5px padding on top/bottom = 34px, 
-            // but let's give slightly more room for ascenders: 40px seems safe and tight enough compared to 80px.
-            // Let's strictly follow "5px gap all the way around". 
-            // 24px cap height approx. Total height ~34px. If we assume "text" is ~24px high block.
             const boxHeight = 24 + (padding * 2);
 
             const noteW = noteMetrics.width + (padding * 2);
