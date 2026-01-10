@@ -26,7 +26,7 @@ export default function Treasury() {
 
     // 1. Fetch Data
     useEffect(() => {
-        fetch('/data/treasury.json')
+        fetch(import.meta.env.BASE_URL + 'data/treasury.json')
             .then(res => res.json())
             .then(data => {
                 simulationDataRef.current = data;
