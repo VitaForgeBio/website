@@ -250,7 +250,11 @@ export default function Dashboard() {
                                         value={exitValue}
                                         onChange={(e) => setExitValue(parseFloat(e.target.value))}
                                         style={{
-                                            backgroundSize: `${(exitValue - selectedAsset.tokenData.min) * 100 / (selectedAsset.tokenData.max - selectedAsset.tokenData.min)}% 100%`
+                                            // Calculate percent (0-100)
+                                            // Offset formula: +10px (at 0%) -> -10px (at 100%).
+                                            // This aligns the background fill edge exactly with the center of the 20px thumb.
+                                            // Formula: calc(P% + (10px - (P/100 * 20px)))
+                                            backgroundSize: `calc(${(exitValue - selectedAsset.tokenData.min) * 100 / (selectedAsset.tokenData.max - selectedAsset.tokenData.min)}% + ${10 - ((exitValue - selectedAsset.tokenData.min) * 100 / (selectedAsset.tokenData.max - selectedAsset.tokenData.min)) / 100 * 20}px) 100%`
                                         }}
                                     />
                                     <div className="current-val-display" style={{ marginTop: '15px', fontSize: '1.2rem', color: 'white', fontWeight: 'bold' }}>
