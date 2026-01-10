@@ -11,7 +11,7 @@ import Treasury from './pages/Treasury';
 
 function App() {
   return (
-    <BrowserRouter basename="/website">
+    <HashRouter basename="/website">
       <AuthGuard>
         <Navbar />
         <Routes>
@@ -21,7 +21,7 @@ function App() {
           <Route path="/treasury" element={<Treasury />} />
         </Routes>
       </AuthGuard>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
