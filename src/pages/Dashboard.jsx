@@ -245,18 +245,20 @@ export default function Dashboard() {
                                         <span id="slider-min-label">Min: ${formatMoney(selectedAsset.tokenData.min)}</span>
                                         <span id="slider-max-label">Max: ${formatMoney(selectedAsset.tokenData.max)}</span>
                                     </div>
-                                    <input
-                                        type="range" min={selectedAsset.tokenData.min} max={selectedAsset.tokenData.max} step="1000000"
-                                        value={exitValue}
-                                        onChange={(e) => setExitValue(parseFloat(e.target.value))}
-                                        style={{
-                                            // Calculate percent (0-100)
-                                            // Offset formula: +10px (at 0%) -> -10px (at 100%).
-                                            // This aligns the background fill edge exactly with the center of the 20px thumb.
-                                            // Formula: calc(P% + (10px - (P/100 * 20px)))
-                                            backgroundSize: `calc(${(exitValue - selectedAsset.tokenData.min) * 100 / (selectedAsset.tokenData.max - selectedAsset.tokenData.min)}% + ${10 - ((exitValue - selectedAsset.tokenData.min) * 100 / (selectedAsset.tokenData.max - selectedAsset.tokenData.min)) / 100 * 20}px) 100%`
-                                        }}
-                                    />
+                                    <div className="slider-input-wrapper">
+                                        <div className="slider-track-bg"></div>
+                                        <div
+                                            className="slider-track-fill"
+                                            style={{
+                                                width: `${(exitValue - selectedAsset.tokenData.min) * 100 / (selectedAsset.tokenData.max - selectedAsset.tokenData.min)}%`
+                                            }}
+                                        ></div>
+                                        <input
+                                            type="range" min={selectedAsset.tokenData.min} max={selectedAsset.tokenData.max} step="1000000"
+                                            value={exitValue}
+                                            onChange={(e) => setExitValue(parseFloat(e.target.value))}
+                                        />
+                                    </div>
                                     <div className="current-val-display" style={{ marginTop: '15px', fontSize: '1.2rem', color: 'white', fontWeight: 'bold' }}>
                                         Target Exit<sup>*</sup>: <span id="slider-val-display" style={{ color: 'var(--highlight-cyan)' }}>${formatMoney(exitValue)}</span>
                                     </div>

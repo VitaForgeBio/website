@@ -424,20 +424,56 @@ header {
     margin-bottom: 10px;
 }
 
-input[type=range] {
+/* Slider Wrapper */
+.slider-input-wrapper {
+    position: relative;
     width: 100%;
+    height: 20px;
+    /* Match thumb height for vertical alignment */
+    display: flex;
+    align-items: center;
+}
+
+/* Visual Track (Background Grey) */
+.slider-track-bg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    z-index: 0;
+}
+
+/* Visual Fill (Orange) */
+.slider-track-fill {
+    position: absolute;
+    left: 0;
+    height: 6px;
+    background: var(--highlight-orange);
+    border-radius: 3px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+input[type=range] {
+    width: calc(100% + 20px);
+    /* 100% + ThumbWidth */
+    margin-left: -10px;
+    /* -ThumbWidth/2 */
+    margin-right: -10px;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     background: transparent;
-    background-color: rgba(255, 255, 255, 0.1);
-    height: 6px;
-    border-radius: 3px;
+    /* Transparent so we see the div tracks */
+    height: 20px;
+    /* Full height to contain thumb */
     outline: none;
-    background-image: linear-gradient(90deg, var(--highlight-orange), var(--highlight-orange));
-    background-size: 0% 100%;
-    background-repeat: no-repeat;
     cursor: pointer;
+    position: relative;
+    z-index: 1;
+    /* Above tracks */
 }
 
 input[type=range]::-webkit-slider-thumb {
