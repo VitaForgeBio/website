@@ -1,0 +1,276 @@
+/* Team Page - The Kinetic Ledger */
+
+:root {
+    --team-bg: #050b14;
+    --team-card-bg: rgba(15, 29, 46, 0.6);
+    --team-card-border: rgba(0, 240, 255, 0.1);
+    --team-accent-primary: #ff4d00;
+    /* Bitcoin Orange */
+    --team-accent-secondary: #00f0ff;
+    /* Cyan */
+    --team-text-mono: 'JetBrains Mono', monospace;
+    --team-text-sans: 'Inter', sans-serif;
+}
+
+.team-container {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    color: white;
+    font-family: var(--team-text-sans);
+}
+
+/* 1. The Header (The Metrics) */
+.metrics-ticker {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: rgba(15, 29, 46, 0.8);
+    border: 1px solid var(--team-card-border);
+    padding: 1.5rem;
+    margin-bottom: 3rem;
+    border-radius: 4px;
+    font-family: var(--team-text-mono);
+    position: relative;
+    overflow: hidden;
+}
+
+.metrics-ticker::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: var(--team-accent-primary);
+    box-shadow: 0 0 10px var(--team-accent-primary);
+    animation: scanline 3s infinite linear;
+}
+
+@keyframes scanline {
+    0% {
+        left: 0;
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        left: 100%;
+        opacity: 0;
+    }
+}
+
+.metric-item {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.metric-value {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--team-accent-primary);
+    text-shadow: 0 0 5px rgba(255, 77, 0, 0.3);
+}
+
+.metric-label {
+    font-size: 0.9rem;
+    color: #8899ac;
+    letter-spacing: 1px;
+}
+
+/* 2. Layout Structure */
+.content-grid {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 3rem;
+}
+
+/* 3. The Manifesto */
+.manifesto-section {
+    font-family: var(--team-text-mono);
+}
+
+.terminal-header {
+    font-size: 1.2rem;
+    color: var(--team-accent-secondary);
+    border-bottom: 2px solid var(--team-accent-secondary);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    display: inline-block;
+    letter-spacing: 1px;
+}
+
+.terminal-header:first-of-type {
+    margin-top: 0;
+}
+
+.manifesto-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #ccd6e0;
+    margin-bottom: 2rem;
+    border-left: 1px solid #333;
+    padding-left: 1rem;
+}
+
+/* 4. The Team Grid */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.team-card {
+    background: var(--team-card-bg);
+    border: 1px solid var(--team-card-border);
+    padding: 2rem;
+    border-radius: 2px;
+    position: relative;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.team-card:hover {
+    border-color: var(--team-accent-secondary);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 240, 255, 0.1);
+}
+
+.team-card.ai-card {
+    border: 1px solid rgba(255, 77, 0, 0.3);
+    background: linear-gradient(145deg, rgba(15, 29, 46, 0.9), rgba(255, 77, 0, 0.05));
+    animation: pulse-border 4s infinite alternate;
+}
+
+@keyframes pulse-border {
+    0% {
+        box-shadow: 0 0 0 rgba(255, 77, 0, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 15px rgba(255, 77, 0, 0.2);
+    }
+}
+
+/* Abstract Node Visuals */
+.node-visual {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hex {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 240, 255, 0.1);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(0, 240, 255, 0.3);
+}
+
+.ai-card .hex {
+    background: rgba(255, 77, 0, 0.1);
+    border-color: rgba(255, 77, 0, 0.4);
+}
+
+.node-icon {
+    font-size: 2rem;
+    color: var(--team-accent-secondary);
+}
+
+.ai-card .node-icon {
+    color: var(--team-accent-primary);
+}
+
+/* Card Content */
+.member-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.25rem;
+    font-family: var(--team-text-sans);
+}
+
+.member-role {
+    font-family: var(--team-text-mono);
+    color: var(--team-accent-primary);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+}
+
+.member-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.member-stats {
+    width: 100%;
+    margin-top: auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #888;
+    font-family: var(--team-text-mono);
+    overflow: hidden;
+    /* Contain the scroll */
+}
+
+.stats-scroll-wrapper {
+    flex: 1;
+    overflow: hidden;
+    margin-left: 1rem;
+    position: relative;
+    mask-image: linear-gradient(90deg, transparent, white 10%, white 90%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, white 10%, white 90%, transparent);
+}
+
+.stats-scroll-content {
+    display: inline-block;
+    white-space: nowrap;
+    animation: stats-scroll 12s linear infinite;
+    padding-left: 100%;
+    /* Start from right */
+}
+
+@keyframes stats-scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-150%);
+    }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .metrics-ticker {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+}

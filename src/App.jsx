@@ -9,6 +9,8 @@ import Dashboard from './pages/Dashboard';
 
 import Treasury from './pages/Treasury';
 
+import Team from './pages/Team';
+
 function App() {
   return (
     <HashRouter>
@@ -16,6 +18,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/team" element={<Team />} />
           <Route path="/investors" element={<Investors />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/treasury" element={<Treasury />} />
