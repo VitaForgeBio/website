@@ -1,0 +1,658 @@
+/* Investment Thesis Page Styles */
+
+/* Variables */
+:root {
+    --thesis-bg: #050b14;
+    --thesis-text: #e0e0e0;
+    --thesis-text-muted: #888888;
+    --color-vita-bg: #050b14;
+    --color-vita-traditional: #888888;
+    --color-vita-accent: #00f0ff;
+    --color-vita-accent-primary: #ff4d00;
+    --color-vita-secondary: #00f0ff;
+    --font-mono: 'Space Mono', monospace;
+    --font-sans: 'Inter', sans-serif;
+}
+
+.thesis-page {
+    background-color: var(--thesis-bg);
+    color: var(--thesis-text);
+    min-height: 100vh;
+    font-family: var(--font-sans);
+    padding-top: 80px;
+    /* Account for fixed navbar */
+}
+
+/* Hero Section */
+.thesis-hero {
+    position: relative;
+    padding: 5rem 1.5rem;
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.hero-bg-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 240, 255, 0.05), transparent);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.thesis-h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    position: relative;
+    z-index: 10;
+}
+
+.highlight-primary {
+    color: var(--color-vita-accent-primary);
+}
+
+.thesis-subhead {
+    font-size: 1.25rem;
+    color: var(--thesis-text-muted);
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+}
+
+.highlight-accent {
+    color: var(--color-vita-accent);
+    font-family: var(--font-mono);
+}
+
+.highlight-traditional {
+    color: var(--color-vita-traditional);
+    font-family: var(--font-mono);
+}
+
+@media (min-width: 768px) {
+    .thesis-h1 {
+        font-size: 3.5rem;
+    }
+
+    .thesis-subhead {
+        font-size: 1.5rem;
+    }
+}
+
+/* Models Comparison Section */
+.models-comparison {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 5rem;
+}
+
+.comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+}
+
+@media (min-width: 1024px) {
+    .comparison-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Card Common Styles */
+.model-card {
+    border-radius: 8px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.model-header {
+    margin-bottom: 2rem;
+}
+
+.model-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.model-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--thesis-text-muted);
+}
+
+.capital-badge {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+/* Traditional Card Specifics */
+.model-card.traditional {
+    background-color: rgba(17, 24, 39, 0.5);
+    border: 1px solid rgba(136, 136, 136, 0.3);
+}
+
+.model-card.traditional .model-title {
+    color: #fff;
+}
+
+.model-card.traditional .capital-badge {
+    background-color: rgba(136, 136, 136, 0.1);
+    color: var(--color-vita-traditional);
+    border: 1px solid rgba(136, 136, 136, 0.3);
+}
+
+/* VitaForge Card Specifics */
+.model-card.vitaforge {
+    background-color: rgba(17, 24, 39, 0.8);
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.1);
+}
+
+.model-card.vitaforge .model-title {
+    color: #fff;
+}
+
+.model-card.vitaforge .capital-badge {
+    background-color: var(--color-vita-accent);
+    color: #000;
+    font-weight: 700;
+    /* Added weight for better readability on bright background */
+    border: none;
+}
+
+
+/* Visualizations */
+.stack-visual {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 2rem 0;
+    align-items: center;
+}
+
+.block {
+    width: 70%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Traditional Stack Blocks */
+.block.locked {
+    background-color: rgba(136, 136, 136, 0.15);
+    border: 1px solid rgba(136, 136, 136, 0.3);
+    color: var(--thesis-text-muted);
+}
+
+/* VitaForge Stack Blocks */
+.block.liquid {
+    background-color: rgba(0, 240, 255, 0.05);
+    border: 1px dashed rgba(0, 240, 255, 0.2);
+    color: var(--thesis-text-muted);
+}
+
+.block.liquid.highlight {
+    background-color: rgba(255, 77, 0, 0.15);
+    border: 1px solid var(--color-vita-accent-primary);
+    color: var(--color-vita-accent-primary);
+    box-shadow: 0 0 15px rgba(255, 77, 0, 0.2);
+    transform: scale(1.05);
+    z-index: 2;
+}
+
+
+/* Highlight Glow Effect - Cyan Neon */
+.block.liquid.glow {
+    border-color: var(--color-vita-accent);
+    color: var(--color-vita-accent);
+    background-color: rgba(0, 240, 255, 0.15);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.5), inset 0 0 10px rgba(0, 240, 255, 0.3);
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
+    z-index: 2;
+    transform: scale(1.02);
+    font-weight: 700;
+}
+
+/* 10 Year Hold Diagonal Overlay */
+.diagonal-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-35deg);
+    width: 80%;
+    /* Adjusted to match stack extent */
+    text-align: center;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: rgba(255, 77, 0, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+/* Liquid Stack Border Container (Transparent for Alignment) */
+.liquid-stack-border {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border: 3px solid transparent;
+    /* Transparent border to match width of locked border */
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+.liquid-stack-border .block {
+    width: 100%;
+    /* Fill the container */
+}
+
+
+/* Row Lines */
+.row-lines-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem 0;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.row-label {
+    width: 80px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--thesis-text-muted);
+    text-align: right;
+}
+
+.row-bar {
+    flex: 1;
+    height: 4px;
+    background: rgba(136, 136, 136, 0.2);
+    border-radius: 2px;
+    position: relative;
+}
+
+.row.highlight .row-bar {
+    background: var(--color-vita-accent-primary);
+    box-shadow: 0 0 10px rgba(255, 77, 0, 0.5);
+}
+
+.row.highlight .row-label {
+    color: var(--color-vita-accent-primary);
+    font-weight: 700;
+}
+
+
+/* Economic Argument Section */
+.economic-argument {
+    background-color: #080f1c;
+    padding: 5rem 1.5rem;
+    text-align: center;
+}
+
+.argument-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.alpha-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid rgba(255, 77, 0, 0.5);
+    border-radius: 999px;
+    color: var(--color-vita-accent-primary);
+    background-color: rgba(255, 77, 0, 0.1);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+}
+
+.argument-h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #fff;
+}
+
+.underline-style {
+    color: var(--color-vita-accent-primary);
+    text-decoration: underline;
+    text-decoration-color: var(--color-vita-accent-primary);
+    text-underline-offset: 8px;
+}
+
+.argument-text {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--thesis-text-muted);
+}
+
+@media (min-width: 768px) {
+    .argument-h2 {
+        font-size: 3rem;
+    }
+}
+
+/* CTA Section */
+.thesis-cta {
+    padding: 5rem 1.5rem;
+    text-align: center;
+}
+
+.cta-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.btn-primary {
+    background-color: var(--color-vita-accent);
+    color: #000;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--thesis-text-muted);
+    padding: 1rem 2rem;
+    border: 1px solid rgba(136, 136, 136, 0.3);
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    border-color: #fff;
+    color: #fff;
+}
+
+@media (min-width: 640px) {
+    .cta-buttons {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+
+/* Animations */
+.model-card:hover {
+    transform: translateY(-5px);
+}
+
+/* De-risking Visuals - Grid Layout */
+.derisking-wrapper {
+    margin-top: 1rem;
+    padding: 0 1rem;
+}
+
+.derisking-header-row {
+    display: flex;
+    justify-content: flex-end;
+    /* Align headers with columns */
+    margin-bottom: 0.5rem;
+    padding-left: calc(80px + 2rem + 1px);
+    /* 80px label width + 1rem padding-right + 1rem margin-right + 1px border */
+    gap: 0.5rem;
+    /* Match columns-container gap */
+}
+
+.header-label {
+    flex: 1;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--thesis-text-muted);
+    opacity: 0.8;
+}
+
+.derisking-body {
+    display: flex;
+    align-items: stretch;
+    height: 220px;
+}
+
+.stage-labels-col {
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* Align top-to-bottom */
+    gap: 4px;
+    /* Match columns gap */
+    padding-right: 1rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    margin-right: 1rem;
+}
+
+.stage-label {
+    height: 40px;
+    /* Match block height */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--thesis-text-muted);
+    text-align: right;
+}
+
+.columns-container {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    /* Reduced gap */
+}
+
+.small-col {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    /* Vertical gap between blocks */
+    flex: 1;
+    justify-content: flex-start;
+    height: 100%;
+}
+
+.small-block {
+    height: 40px;
+    /* Fixed height for alignment with labels */
+    background: rgba(109, 125, 140, 0.1);
+    border: 1px solid rgba(109, 125, 140, 0.3);
+    width: 100%;
+    border-radius: 2px;
+}
+
+.small-block.placeholder {
+    background: transparent;
+    border-color: transparent;
+}
+
+.small-block.ghost {
+    background: transparent;
+    border: 1px dashed rgba(109, 125, 140, 0.2);
+}
+
+.small-block.highlight {
+    background: var(--color-vita-secondary);
+    border: 1px solid var(--color-vita-secondary);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+}
+
+/* Liquid Stack Border Container (Transparent for Alignment) */
+.liquid-stack-border {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border: 3px solid transparent;
+    /* Transparent border to match width of locked border */
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+.liquid-stack-border .block {
+    width: 100%;
+    /* Fill the container */
+}
+/* Contact Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(5, 11, 20, 0.85); /* Dark semi-transparent backdrop */
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: transparent;
+    padding: 0;
+    width: 90%;
+    max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: fadeIn 0.3s ease;
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    background: transparent;
+    border: none;
+    color: #aaa;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 1010;
+    line-height: 1;
+}
+
+.close-modal-btn:hover {
+    color: white;
+}
+
+/* Cloned Form Styles from Investors.css */
+.form-card {
+    background: #0f1825; /* Using a darker card bg consistent with Thesis */
+    border: 1px solid #333;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    color: var(--color-vita-accent); /* Use Thesis accent variable */
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #444;
+    color: white;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-vita-accent-primary);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(90deg, var(--color-vita-accent-primary), #ff7700);
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 1rem;
+    transition: transform 0.2s;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 77, 0, 0.3);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

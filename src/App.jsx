@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard';
 import Treasury from './pages/Treasury';
 
 import Team from './pages/Team';
+import Thesis from './pages/Thesis';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/thesis" element={<Thesis />} />
           <Route path="/team" element={<Team />} />
           <Route path="/investors" element={<Investors />} />
           <Route path="/dashboard" element={<Dashboard />} />
