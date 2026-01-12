@@ -1,0 +1,86 @@
+/* Page Layout */
+.contact-page {
+    min-height: 100vh;
+    padding: 8rem 2rem 4rem;
+    /* Top padding for navbar */
+    background: radial-gradient(circle at top, #0f1d2e 0%, #050b14 70%);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.contact-container {
+    width: 100%;
+    max-width: 700px;
+}
+
+/* Form Styles (Cloned from investors.css) */
+.form-card {
+    background: var(--card-bg);
+    border: 1px solid #333;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    color: var(--highlight-cyan);
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    background: var(--form-input-bg);
+    border: 1px solid #444;
+    color: white;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--highlight-orange);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(90deg, var(--highlight-orange), #ff7700);
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 1rem;
+    transition: transform 0.2s;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 77, 0, 0.3);
+}
+
+@media (max-width: 600px) {
+    .form-card {
+        padding: 2rem;
+    }
+}

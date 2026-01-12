@@ -11,6 +11,7 @@ import Treasury from './pages/Treasury';
 
 import Team from './pages/Team';
 import Thesis from './pages/Thesis';
+import Contact from './pages/Contact';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/investors" element={<Investors />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/treasury" element={<Treasury />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </AuthGuard>
     </HashRouter>
