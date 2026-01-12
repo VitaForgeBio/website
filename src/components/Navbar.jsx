@@ -10,6 +10,7 @@ export default function Navbar() {
             <NavLink to="/investors" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>Investors</NavLink>
             <NavLink to="/dashboard" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>Asset Dashboard</NavLink>
             <NavLink to="/treasury" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>Bitcoin Treasury</NavLink>
+            <NavLink to="/btc-battery" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>BTC Battery</NavLink>
         </nav>
     );
 }

@@ -1,0 +1,211 @@
+/* BTC Battery Page Styles */
+
+.btc-battery-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    color: #e0e0e0;
+    font-family: 'Inter', sans-serif;
+}
+
+/* --- Hero Section --- */
+.battery-hero {
+    text-align: center;
+    margin-bottom: 5rem;
+    padding-top: 3rem;
+}
+
+.battery-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #fff 0%, #aaa 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -2px;
+}
+
+.battery-subtitle {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto 3rem auto;
+    color: #a0a0a0;
+}
+
+/* --- The Graphic --- */
+.charge-graphic-container {
+    margin: 0 auto;
+    max-width: 800px;
+    height: 400px;
+    background: radial-gradient(circle at center, #1a2f45 0%, #050b14 70%);
+    border: 1px solid var(--highlight-cyan, #00f0ff);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.1);
+}
+
+/* --- Symmetry Section (Two Grids) --- */
+.symmetry-section {
+    margin-bottom: 6rem;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    color: var(--highlight-cyan, #00f0ff);
+    text-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+}
+
+.grid-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: stretch;
+}
+
+.grid-card {
+    background: rgba(20, 25, 35, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2.5rem;
+    border-radius: 12px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.grid-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--highlight-cyan, #00f0ff);
+}
+
+.grid-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1rem;
+}
+
+.grid-card p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #ccc;
+}
+
+.highlight-energy {
+    color: #ffcc00;
+    /* Solar/Bitcoin gold */
+}
+
+.highlight-bio {
+    color: var(--highlight-orange, #ff4d00);
+    /* VitaForge Orange */
+}
+
+/* --- Valley of Death Section --- */
+.valley-section {
+    margin-bottom: 6rem;
+    background: linear-gradient(90deg, rgba(20, 20, 30, 0) 0%, rgba(20, 25, 35, 0.8) 50%, rgba(20, 20, 30, 0) 100%);
+    padding: 4rem 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center;
+}
+
+.valley-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.valley-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #ff4d4d;
+    /* Danger red */
+}
+
+.valley-content p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #ddd;
+    margin-bottom: 1.5rem;
+}
+
+/* --- Mechanism Section --- */
+.mechanism-section {
+    margin-bottom: 6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.mechanism-content {
+    max-width: 800px;
+}
+
+.mechanism-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--highlight-cyan, #00f0ff);
+}
+
+.mechanism-text {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: #ccc;
+}
+
+/* --- Call to Action --- */
+.cta-section {
+    text-align: center;
+    padding: 4rem 2rem;
+    margin-bottom: 4rem;
+}
+
+.cta-text {
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+    color: #fff;
+    max-width: 700px;
+    margin: 0 auto 3rem auto;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 3rem;
+    background: transparent;
+    border: 2px solid var(--highlight-orange, #ff4d00);
+    color: var(--highlight-orange, #ff4d00);
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.cta-button:hover {
+    background: var(--highlight-orange, #ff4d00);
+    color: #000;
+    box-shadow: 0 0 30px var(--highlight-orange, #ff4d00);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .grid-comparison {
+        grid-template-columns: 1fr;
+    }
+
+    .battery-title {
+        font-size: 2.5rem;
+    }
+}
