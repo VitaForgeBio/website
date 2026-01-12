@@ -1,7 +1,8 @@
 /* BTC Battery Page Styles */
 
 .btc-battery-container {
-    max-width: 1200px;
+    max-width: 1400px;
+    /* Increased max-width for side-by-side */
     margin: 0 auto;
     padding: 2rem;
     color: #e0e0e0;
@@ -30,26 +31,65 @@
     font-size: 1.25rem;
     line-height: 1.6;
     max-width: 800px;
-    margin: 0 auto 3rem auto;
+    margin: 0 auto 4rem auto;
     color: #a0a0a0;
 }
 
-/* --- The Graphic --- */
-.charge-graphic-container {
-    margin: 0 auto;
-    max-width: 800px;
-    height: 400px;
+/* --- Graphic Layout --- */
+.graphics-row {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    /* Fallback for smaller screens */
+    gap: 2rem;
+    width: 100%;
+}
+
+.graphic-card {
+    flex: 1;
+    min-width: 450px;
     background: radial-gradient(circle at center, #1a2f45 0%, #050b14 70%);
-    border: 1px solid var(--highlight-cyan, #00f0ff);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.graphic-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--highlight-cyan, #00f0ff);
+}
+
+.graphic-label {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Reuse existing wrapper logic but fit to card */
+.graphic-wrapper {
+    width: 100%;
+    /* The SVG is viewBox'd appropriately, just ensure it scales */
+    overflow: hidden;
+    flex-grow: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2rem;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 0 30px rgba(0, 240, 255, 0.1);
 }
+
+.graphic-wrapper svg {
+    max-width: 100%;
+    height: auto;
+    max-height: 300px;
+}
+
 
 /* --- Symmetry Section (Two Grids) --- */
 .symmetry-section {
@@ -200,6 +240,18 @@
 }
 
 /* Responsive adjustments */
+@media (max-width: 1024px) {
+    .graphics-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .graphic-card {
+        width: 100%;
+        max-width: 600px;
+    }
+}
+
 @media (max-width: 768px) {
     .grid-comparison {
         grid-template-columns: 1fr;

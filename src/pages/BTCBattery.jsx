@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/btc-battery.css';
 import BitcoinBatteryGraphic from '../components/BitcoinBatteryGraphic';
+import EnergyMiningGraphic from '../components/EnergyMiningGraphic';
 import { useNavigate } from 'react-router-dom';
 
 const BTCBattery = () => {
@@ -12,11 +13,25 @@ const BTCBattery = () => {
             <section className="battery-hero">
                 <h1 className="battery-title">Converting Clinical Momentum into Monetary Energy</h1>
                 <p className="battery-subtitle">
-                    Just as a power producer mines Bitcoin to capture stranded energy, VitaForge utilizes "Monetary Mining"
-                    to store transient market surges as long-term, high-asymmetry capital. We call this the Bitcoin Battery.
+                    Just as Bitcoin miners capture stranded energy and stabilize grids, VitaForge utilizes "Monetary Mining"
+                    to store transient market surges as long-term capital. We call this the Bitcoin Battery.
                 </p>
-                <div className="charge-graphic-container">
-                    <BitcoinBatteryGraphic />
+
+                {/* Graphics Container */}
+                <div className="graphics-row">
+                    <div className="graphic-card">
+                        <h3 className="graphic-label highlight-energy">Energy Mining</h3>
+                        <div className="graphic-wrapper">
+                            <EnergyMiningGraphic />
+                        </div>
+                    </div>
+                    <div className="graphic-divider"></div>
+                    <div className="graphic-card">
+                        <h3 className="graphic-label highlight-bio">Monetary Mining</h3>
+                        <div className="graphic-wrapper">
+                            <BitcoinBatteryGraphic />
+                        </div>
+                    </div>
                 </div>
             </section>
 

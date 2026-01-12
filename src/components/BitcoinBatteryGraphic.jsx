@@ -75,7 +75,10 @@ const BitcoinBatteryGraphic = () => {
                     </marker>
                 </defs>
                 <line x1="0" y1="0" x2="60" y2="0" stroke="#00f0ff" strokeWidth="2" markerEnd="url(#arrowhead)" opacity={progress > 20 ? 1 : 0.3} />
-                <text x="30" y="-10" fill="#00f0ff" textAnchor="middle" fontSize="10">CONVERTIBLE\nNOTE</text>
+                <text x="30" y="-15" fill="#00f0ff" textAnchor="middle" fontSize="10">
+                    <tspan x="30" dy="0">CONVERTIBLE</tspan>
+                    <tspan x="30" dy="12">NOTE</tspan>
+                </text>
             </g>
 
             {/* --- Right Side: Bitcoin Battery --- */}
